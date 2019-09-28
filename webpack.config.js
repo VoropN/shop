@@ -69,6 +69,18 @@ module.exports = {
 					'sass-loader',
 				],
 			},
+			{
+				test: /\.html$/,
+				use: [
+					{
+						loader: 'html-loader',
+						options: { minimize: true }
+					},
+					{
+						loader: 'posthtml-loader'
+					}
+				]
+			},
 		]
 	},
 

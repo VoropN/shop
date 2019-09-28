@@ -1,0 +1,19 @@
+.product
+  display: grid
+  grid-template-columns: repeat(2, 1fr)
+
+.block-img
+  width: 450px
+  height: 150px
+  overflow: hidden
+  filter: drop-shadow(2px 4px 6px black)
+  border-radius: 100px
+  &:hover 
+    filter:  contrast(1.2) drop-shadow(3px 6px 8px rgba(green, .5))
+
+.row
+  margin: 20px
+  display: flex
+  align-items: center
+  &:hover 
+    cursor: pointer

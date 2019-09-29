@@ -2,9 +2,12 @@ import { ProductModel } from "./product.model";
 import { ProductView } from "./product.view";
 
 export class ProductController {
-  constructor(data) {
-    this.productModel = new ProductModel(data);
+  constructor() {
+    this.productModel = new ProductModel();
     this.productView = new ProductView();
+    this.init();
+  }
+  init() {
     this.productView.bindButtonAdd(this.addBasket);
     this.getData();
   }

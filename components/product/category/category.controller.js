@@ -2,9 +2,12 @@ import { CategoryModel } from "./category.model";
 import { CategoryView } from "./category.view";
 
 export class CategoryController {
-  constructor(data) {
-    this.categoryModel = new CategoryModel(data);
-    this.categoryView = new CategoryView(this);
+  constructor() {
+    this.categoryModel = new CategoryModel();
+    this.categoryView = new CategoryView();
+    this.init();
+  }
+  init() {
     this.getAllCategory();
     this.categoryView.bindButtonCategory(this.getProductForCategory.bind(this));
   }

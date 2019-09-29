@@ -3,11 +3,20 @@ import product from './product.html';
 import './product.sass';
 
 export class ProductView {
-  constructor() {
-    this.output = globalProduct;
+  constructor() {}
+  get productRef() {
+    let createRef = function () {
+      ProductView.productStatic = document.createElement('div');
+      ProductView.productStatic.className = 'container product';
+      globalContainer.appendChild(ProductView.productStatic)
+    };
+    if (!ProductView.productStatic) {
+      createRef();
+    };
+    return ProductView.productStatic;
   }
   bindButtonAdd(addBasket) {
-    this.output.addEventListener('click', (e) => {
+    this.productRef.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button')) {
         addBasket(target.parentNode.parentNode)
@@ -15,6 +24,6 @@ export class ProductView {
     })
   }
   render(data) {
-    this.output.innerHTML = data.map((e) => new Translator({template: product, component: e}).format()).join('');
+    this.productRef.innerHTML = data.map((e) => new Translator({ template: product, component: e }).format()).join('');
   }
 }

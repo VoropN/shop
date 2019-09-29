@@ -1,5 +1,8 @@
 export class ProductModel {
+  constructor(data) {
+    this.data = data;
+  }
   getData() {
-    return fetch('./components/product/data/goods.json').then(e => e.json());
+    return this.data;
   }
 }

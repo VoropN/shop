@@ -1,4 +1,4 @@
-<div *for class="row">
+<div class="row">
   <div class="two column block-img"><img src="{{url}}" alt="none"></div>
   <div class="two column">
     <div><span>Name: </span>{{ name }}</div>
@@ -6,4 +6,6 @@
     <div><span>Gender: </span>{{ gender }}</div>
     <div *if="fur"><span>Fur: </span>{{ fur }}</div>
     <div><span>Color: </span>{{ color }}</div>
+    <button class="button button-primary">Add</button>
+  </div>
 </div>

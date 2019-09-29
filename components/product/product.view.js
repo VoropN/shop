@@ -4,11 +4,17 @@ import './product.sass';
 
 export class ProductView {
   constructor() {
-    this.elem = document.createElement('div');
-    this.elem.classList.add('product');
+    this.output = globalProduct;
+  }
+  bindButtonAdd(addBasket) {
+    this.output.addEventListener('click', (e) => {
+      let target = e.target;
+      if (target.closest('.button')) {
+        addBasket(target.parentNode.parentNode)
+      }
+    })
   }
   render(data) {
-    this.elem.innerHTML = data.map((e) => new Translator({template: product, component: e}).format()).join('');
-    container.append(this.elem);
+    this.output.innerHTML = data.map((e) => new Translator({template: product, component: e}).format()).join('');
   }
 }

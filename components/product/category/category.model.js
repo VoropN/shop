@@ -1,9 +1,9 @@
 export class CategoryModel {
   getProductForCategory(data, filterOption) {
     return (
-      filterOption['category'] === 'all' ?
+      filterOption.category === 'all' ?
       data :
-      data.filter(product => product.type === filterOption['category'])
+      data.filter(product => product.type === filterOption.category)
     );
   }
   getAllCategory(data) {

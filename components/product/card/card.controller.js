@@ -1,7 +1,7 @@
 import { CardView } from "./card.view";
 
 export class CardController {
-  constructor(output, funcGetDate) {
+  constructor(output) {
     this.cardView = new CardView(output);
     this.init();
   }

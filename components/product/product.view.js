@@ -3,7 +3,9 @@ import product from './product.html';
 import './product.sass';
 
 export class ProductView {
-  constructor() {}
+  constructor() {
+    this.productTemplate = product;
+  }
   get productRef() {
     let createRef = function () {
       ProductView.productStatic = document.createElement('div');
@@ -24,6 +26,6 @@ export class ProductView {
     })
   }
   render(data) {
-    this.productRef.innerHTML = data.map((e) => new Translator({ template: product, component: e }).format()).join('');
+    this.productRef.innerHTML = data.map((e) => new Translator({ template: this.productTemplate, component: e }).format()).join('');
   }
 }

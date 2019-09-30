@@ -1,41 +1,35 @@
 import { Translator } from '../../../src/translator';
-import { ProductView } from '../product.view';
 import categoryTemplate from './category.html';
 import './category.sass';
 
-export class CategoryView extends ProductView {
-  constructor() {
-    super();
-    this.init();
+export class CategoryView  {
+  constructor(output, filterOpition) {
+    this.categoryOutput = output;
+    this.filterOption = filterOpition;
+    this.createActiveCategory();
+    this.bindButtonCategory();
   }
-  init() {
-    this.category = document.createElement('div');
-    this.category.className = 'category container';
-  }
-  bindButtonCategory(handler) {
-    this.category.addEventListener('click', (e) => {
+  bindButtonCategory() {
+    this.categoryOutput.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button')) {
-        handler(target.textContent);
-        searchElem.value = '';
-        target.parentNode.insertBefore(this.categoryActiveRef, target)
+        this.changeActiveCategory(target);
+        this.filterOption.category = target.textContent;
+        this.filterOption.update();
       };
     })
   }
   renderCategory(category) {
-    let all = new Translator({template: categoryTemplate, component: { category: 'all' } }).format();
-    this.category.innerHTML = all + category.map((e) => new Translator({template: categoryTemplate, component: { category: e } }).format()).join('');
-    globalContainer.insertBefore(this.category, globalContainer.firstChild);
+    let all = new Translator({template: categoryTemplate, data: { category: 'all' } }).dataBinding();
+    this.categoryOutput.innerHTML = all + category.map(
+      (e) => new Translator({template: categoryTemplate, data: { category: e } }).dataBinding()).join('');
+    this.changeActiveCategory(this.categoryOutput.children[0]);
   }
-  get categoryActiveRef() {
-    let createRef = function () {
-      CategoryView.categoryActiveStatic = document.createElement('div');
-      CategoryView.categoryActiveStatic.className = 'category-active';
-      globalContainer.appendChild(CategoryView.categoryActiveStatic)
-    };
-    if (!CategoryView.categoryActiveStatic) {
-      createRef();
-    };
-    return CategoryView.categoryActiveStatic;
+  createActiveCategory() {
+    this.activeCategory = document.createElement('div');
+    this.activeCategory.className = 'category-active';
+  }
+  changeActiveCategory(before) {
+    this.categoryOutput.insertBefore(this.activeCategory, before);
   }
 }

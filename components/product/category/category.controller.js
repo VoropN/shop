@@ -2,17 +2,16 @@ import { CategoryModel } from "./category.model";
 import { CategoryView } from "./category.view";
 
 export class CategoryController {
-  constructor() {
+  constructor(output, filterOpition) {
     this.categoryModel = new CategoryModel();
-    this.categoryView = new CategoryView();
-    this.init();
+    this.categoryView = new CategoryView(output, filterOpition);
   }
-  init() {
-    this.getAllCategory();
-    this.categoryView.bindButtonCategory(this.getProductForCategory.bind(this));
+  getData(data) {
+    let category = this.categoryModel.getAllCategory(data);
+    this.categoryView.renderCategory(category);
   }
-  getProductForCategory(category) {
-    return this.categoryModel.getProductForCategory(category).then(data => this.categoryView.render(data));
+  getProductForCategory(data, filterOption) {
+    return this.categoryModel.getProductForCategory(data, filterOption);
   }
   getAllCategory() {
     this.categoryModel.getAllCategory().then(category => this.categoryView.renderCategory(category));

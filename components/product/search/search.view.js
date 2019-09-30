@@ -1,30 +1,21 @@
-import { Translator } from '../../../../src/translator';
-import { CategoryView } from '../category.view';
+import { Translator } from '../../../src/translator';
 import searchTemplate from './search.html';
 import './search.sass';
 
-export class SearchView extends CategoryView {
-  constructor() {
-    super();
+export class SearchView {
+  constructor(output, filterOption) {
+    this.searchOutput = output;
+    this.filterOption = filterOption;
+    this.renderSearch();
+    this.inputSeach();
   }
-  inputSeach(handler) {
-    let activeCategory = () => (this.categoryActiveRef.nextElementSibling && this.categoryActiveRef.nextElementSibling.textContent) || 'all';
-    this.searchActiveRef.addEventListener('input', (e) => {
-      let value = e.target.value;
-      handler(activeCategory(), value);
-    })
+  inputSeach() {
+    this.searchOutput.addEventListener('input', (e) => {
+      this.filterOption.search = e.target.value;
+      this.filterOption.update();
+    });
   }
-  get searchActiveRef() {
-    let createRef = function () {
-      let form = document.createElement('form');
-      new Translator({template: searchTemplate, output: form}).render();
-      form.className = 'search-active';
-      globalContainer.insertAdjacentElement('afterBegin', form)
-      SearchView.searchStatic = form;
-    };
-    if (!SearchView.searchStatic) {
-      createRef();
-    };
-    return SearchView.searchStatic;
+  renderSearch() {
+    this.searchOutput.append(new Translator({template: searchTemplate}).createElement());
   }
 }

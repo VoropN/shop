@@ -2,15 +2,11 @@ import { SearchModel } from "./search.model";
 import { SearchView } from "./search.view";
 
 export class SearchController {
-  constructor() {
+  constructor(output, filterOpition) {
     this.searchModel = new SearchModel();
-    this.searchView = new SearchView();
-    this.init();
+    this.searchView = new SearchView(output, filterOpition);
   }
-  init() {
-    this.searchView.inputSeach(this.getProductForSearch.bind(this));
-  }
-  getProductForSearch(category, input) {
-    return this.searchModel.getProductForSearch(category, input).then(data => this.searchView.render(data));
+  getProductForSearch(data, filterOption) {
+    return this.searchModel.getProductForSearch(data, filterOption);
   }
 }

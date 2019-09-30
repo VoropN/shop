@@ -3,15 +3,15 @@ import productTemplate from './product.html';
 import './product.sass';
 
 export class ProductView {
-  constructor() {
-    this.render()
-  }
   render() {
-    this.productOutput = new Translator({template: productTemplate}).createElement();
-    this.productListOutput = this.productOutput.querySelector('.product-list');
-    this.categoryOutput = this.productOutput.querySelector('.category');
-    this.searchOutput = this.productOutput.querySelector('.search');
-    this.filterOutput = this.productOutput.querySelector('.filter');
-    globalContainer.appendChild(this.productOutput);
+    return Promise.resolve(new Translator({ template: productTemplate }).createElement())
+    .then(fragment => {
+      this.productOutput = fragment.querySelector('.product');
+      this.productListOutput = fragment.querySelector('.product-list');
+      this.categoryOutput = fragment.querySelector('.category');
+      this.searchOutput = fragment.querySelector('.search');
+      this.filterOutput = fragment.querySelector('.filter');
+      globalContainer.appendChild(fragment);
+    });
   }
 }

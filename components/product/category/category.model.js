@@ -1,4 +1,4 @@
-import { ProductModel } from '../product.model';
+import { ProductModel } from '../component/product.model';
 
 export class CategoryModel extends ProductModel {
   constructor() {

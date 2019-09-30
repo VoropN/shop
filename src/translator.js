@@ -1,18 +1,21 @@
 export class Translator {
-  constructor({ template, component = {}, output }) {
+  constructor({ template, data = {}}) {
     this.template = template;
-    this.component = component;
-    this.output = output;
+    this.data = data;
   }
-  format() {
-    return Object.keys(this.component)
+  dataBinding() {
+    return Object.keys(this.data)
       .reduce((acc, el) => acc.replace(
           new RegExp(`{{\\s*${el}\\s*}}`, 'g'), 
-          Array.isArray(this.component[el]) ? this.component[el].join(', ') : this.component[el]
+          Array.isArray(this.data[el]) ? this.data[el].join(', ') : this.data[el]
         ), this.template)
-      .replace(/\*if=(\w*)/g, (...data) => this.component[data[1]] ? '' : 'hidden');
+      .replace(/\*if=(\w*)/g, (...prop) => this.data[prop[1]] ? '' : 'hidden');
   }
-  render(output) {
-    (output || this.output).innerHTML = this.format();
+  createElement() {
+    let element = document.createElement('div');
+    let fragment = document.createDocumentFragment();
+    element.innerHTML = this.dataBinding();
+    [...element.children].forEach(e => fragment.append(e))
+    return fragment;
   }
 }

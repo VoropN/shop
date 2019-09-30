@@ -4,5 +4,5 @@ import main from './main.html';
 import { Router } from './router';
 import { Translator } from './translator';
 
-new Translator({template: main, output: document.body}).render();
+document.body.appendChild(new Translator({template: main}).createElement());
 new Router();

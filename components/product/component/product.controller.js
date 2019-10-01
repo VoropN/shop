@@ -18,12 +18,11 @@ export class ProductController {
         self.filter();
       }
     };
-    this.purchases = [];
     this.init();
   }
   init() {
     this.productView.render().then(() => {
-      this.cardList = new CardController(this.productView.productListOutput, this.purchases);
+      this.cardList = new CardController(this.productView.productListOutput);
       this.category = new CategoryController(this.productView.categoryOutput, this.filterOption);
       this.search = new SearchController(this.productView.searchOutput, this.filterOption);
       this.filterContr = new FilterController(this.productView.filterOutput, this.filterOption);

@@ -3,32 +3,34 @@ import cardTemplate from './card.html';
 import './card.sass';
 
 export class CardView {
-  constructor(output, purchases) {
+  constructor(output) {
     this.cardList = output;
-    this.purchases = purchases;
-    this.bindButtonAdd();
   }
-  bindButtonAdd() {
+  bindButtonAdd(getPurchases, setPurchases) {
     this.cardList.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button')) {
+        let purchases = getPurchases();
         if (target.closest('.return')) {
           target.classList.remove('return');
           target.textContent = 'buy';
           target.parentNode.parentNode.classList.remove('block-img-active');
-          this.purchases = this.purchases.filter(id => id != target.dataset.id);
+          purchases = purchases.filter(id => id != target.dataset.id);
+          setPurchases(purchases);
         } else {
           target.classList.add('return');
           target.textContent = 'return';
           target.parentNode.parentNode.classList.add('block-img-active');
-          this.purchases.push(target.dataset.id);
+          purchases.push(target.dataset.id);
+          setPurchases(purchases);
         };
       };
     });
   }
-  render(data) {
+  render(data, getPurchases) {
+    let purchases = getPurchases();
     let newData = data.map(e => {
-      if (this.purchases.indexOf(String(e.id)) !== -1) {
+      if (purchases.indexOf(String(e.id)) !== -1) {
         return { ...e, buttonActiveClass: 'return', buttonTextContent: 'return', blockImgActive: 'block-img-active' };
       } else {
         return { ...e, buttonTextContent: 'buy' };

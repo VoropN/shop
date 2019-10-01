@@ -1,5 +1,9 @@
 export class CartModel {
-  constructor() {
-    
+  getPurchases() {
+    let data = sessionStorage.getItem('purchases');
+    return data ? data.split(',') : [];
+  }
+  setPurchases(purchasesId) {
+    sessionStorage.setItem('purchases', purchasesId.toString())
   }
 }

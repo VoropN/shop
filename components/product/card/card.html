@@ -1,11 +1,11 @@
-<div class="row">
-  <div class="two column block-img"><img src="{{url}}" alt="none"></div>
+<div class="row container {{blockImgActive}}">
+  <div class="two column block-img "><img src="{{url}}" alt="none"></div>
   <div class="two column u-full-width">
     <div><span>Name: </span>{{ name }}</div>
     <div><span>Price: </span>{{ price }}</div>
     <div><span>Gender: </span>{{ gender }}</div>
     <div *if="fur"><span>Fur: </span>{{ fur }}</div>
     <div><span>Color: </span>{{ color }}</div>
-    <button class="button button-primary">Add</button>
+    <button data-id="{{ id }}" class="button button-primary {{ buttonActiveClass }}">{{buttonTextContent}}</button>
   </div>
 </div>

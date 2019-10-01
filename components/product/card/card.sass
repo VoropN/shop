@@ -10,7 +10,9 @@
   filter: drop-shadow(2px 4px 6px black)
   border-radius: 200px
   &:hover 
-    filter:  contrast(1.2) drop-shadow(3px 6px 8px rgba(green, .5))
+    filter: contrast(1.2) drop-shadow(3px 6px 8px rgba(green, .5))
+  &-active img
+    filter: contrast(1.2) drop-shadow(3px 6px 8px rgba(green, .6))
 
 .row
   margin: 20px
@@ -21,4 +23,13 @@
     cursor: grab
   &:active
     cursor: grabbing
+
+.button-primary
+  width: 120px
+
+.button.button-primary:focus.return, 
+button.button-primary:focus.return,
+.button.button-primary.return
+  background: rgba(red, .5)
+  border: 1px solid
 

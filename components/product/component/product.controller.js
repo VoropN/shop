@@ -18,11 +18,12 @@ export class ProductController {
         self.filter();
       }
     };
+    this.purchases = [];
     this.init();
   }
   init() {
     this.productView.render().then(() => {
-      this.cardList = new CardController(this.productView.productListOutput);
+      this.cardList = new CardController(this.productView.productListOutput, this.purchases);
       this.category = new CategoryController(this.productView.categoryOutput, this.filterOption);
       this.search = new SearchController(this.productView.searchOutput, this.filterOption);
       this.filterContr = new FilterController(this.productView.filterOutput, this.filterOption);
@@ -35,10 +36,10 @@ export class ProductController {
   }
   filter() {
     this.productModel.getData()
-      .then(data => this.category.getProductForCategory(data, this.filterOption))
-      .then(data => this.search.getProductForSearch(data, this.filterOption))
-      .then(data => this.filterContr.getProductForPrice(data, this.filterOption))
-      .then(data => this.cardList.getData(data))
+    .then(data => this.category.getProductForCategory(data, this.filterOption))
+    .then(data => this.search.getProductForSearch(data, this.filterOption))
+    .then(data => this.filterContr.getProductForPrice(data, this.filterOption))
+    .then(data => this.cardList.getData(data));
   }
   getData() {
     return this.productModel.getData().then(data => this.productView.render(data));

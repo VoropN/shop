@@ -13,7 +13,7 @@ export class FilterView {
     let slide = this.filterOutput.querySelector('#slide');
     let slider = new Slider({ elem: sliderElem, max: this.maxPrice });
     sliderElem.addEventListener('slide', (event) => {
-      slide.innerHTML = event.detail;
+      slide.innerHTML = event.detail + ' $';
     });
     sliderElem.addEventListener('change', (event) => {
       this.filterOption.price = event.detail;

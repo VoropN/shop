@@ -5,11 +5,12 @@ export class Translator {
   }
   dataBinding() {
     return Object.keys(this.data)
-      .reduce((acc, el) => acc.replace(
-          new RegExp(`{{\\s*${el}\\s*}}`, 'g'), 
-          Array.isArray(this.data[el]) ? this.data[el].join(', ') : this.data[el]
-        ), this.template)
-      .replace(/\*if=(\w*)/g, (...prop) => this.data[prop[1]] ? '' : 'hidden');
+    .reduce((acc, el) => acc.replace(
+      new RegExp(`{{\\s*${el}\\s*}}`, 'g'), 
+      Array.isArray(this.data[el]) ? this.data[el].join(', ') : this.data[el]
+      ), this.template)
+    .replace(/\*if=(\w*)/g, (...prop) => this.data[prop[1]] ? '' : 'hidden')
+    .replace(/{{.*?}}/g, '');
   }
   createElement() {
     let element = document.createElement('div');

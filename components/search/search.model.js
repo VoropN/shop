@@ -1,12 +1,12 @@
 export class SearchModel {
-  getProductForSearch(data, filterOption) {
-    return data.filter(product => {
+  filterProductsBySearch(dataCards, search) {
+    return !search ? dataCards : dataCards.filter(product => {
       return (
-        ~String(product.color).indexOf(filterOption.search) ||
-        ~String(product.name).indexOf(filterOption.search) ||
-        ~String(product.gender).indexOf(filterOption.search) ||
-        ~String(product.price).indexOf(filterOption.search)  ||
-        (product.fur ? ~String(product.fur).indexOf(filterOption.search) : false)
+        ~String(product.color).indexOf(search) ||
+        ~String(product.name).indexOf(search) ||
+        ~String(product.gender).indexOf(search) ||
+        ~String(product.price).indexOf(search)  ||
+        (product.fur ? ~String(product.fur).indexOf(search) : false)
       )
     })
   }

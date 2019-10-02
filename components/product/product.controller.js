@@ -1,11 +1,11 @@
 import { ProductView } from './product.view';
 import { CardController } from '../card/card.controller';
-import { EventManager } from '../../src/event-manager';
 
 export class ProductController {
-  constructor() {
+  constructor(eventManager) {
+    this.eventManager = eventManager;
     this.productView = new ProductView();
-    new EventManager().subscribe('products', (dataCards) => this.giveToRender(dataCards));
+    this.eventManager.subscribe('products', (dataCards) => this.giveToRender(dataCards));
   }
   giveToRender(dataCards) {
     let cardsForRender = this.getCardsForRender(dataCards);

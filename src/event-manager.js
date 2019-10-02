@@ -1,9 +1,5 @@
 export class EventManager {
   constructor() {
-    if(EventManager.singleton) {
-      return EventManager.singleton;
-    };
-    EventManager.singleton = this;
     this.events = {};
   }
   on(eventName, data) {

@@ -1,19 +1,22 @@
-import { Translator } from '../../../src/translator';
+import { Translator } from '../../src/translator';
 import searchTemplate from './search.html';
 import './search.sass';
 
 export class SearchView {
-  constructor(output, filterOption) {
-    this.searchOutput = output;
-    this.filterOption = filterOption;
+  constructor() {
+    this.createOutput();
     this.renderSearch();
-    this.inputSeach();
   }
-  inputSeach() {
+  inputSeach(updateSearch, eventManager) {
     this.searchOutput.addEventListener('input', (e) => {
-      this.filterOption.search = e.target.value;
-      this.filterOption.update();
+      updateSearch(e.target.value);
+      eventManager.on('requestProducts');
     });
+  }
+  createOutput() {
+    this.searchOutput = document.createElement('div');
+    this.searchOutput.className = 'search container';
+    globalContainer.insertBefore(this.searchOutput, globalContainer.firstChild);
   }
   renderSearch() {
     this.searchOutput.append(new Translator({template: searchTemplate}).createElement());

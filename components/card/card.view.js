@@ -1,41 +1,35 @@
-import { Translator } from '../../../src/translator';
+import { Translator } from '../../src/translator';
 import cardTemplate from './card.html';
 import './card.sass';
 
 export class CardView {
-  constructor(output) {
-    this.cardList = output;
-  }
-  bindButtonAdd(getPurchases, setPurchases) {
-    this.cardList.addEventListener('click', (e) => {
+  bindButtonBuy(getSelectCards, saveSelectCards) {
+    this.card.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button')) {
-        let purchases = getPurchases();
+        let selectCards = getSelectCards();
         if (target.closest('.return')) {
           target.classList.remove('return');
           target.textContent = 'buy';
           target.parentNode.parentNode.classList.remove('block-img-active');
-          purchases = purchases.filter(id => id != target.dataset.id);
-          setPurchases(purchases);
+          selectCards = selectCards.filter(id => id != target.dataset.id);
         } else {
           target.classList.add('return');
           target.textContent = 'return';
           target.parentNode.parentNode.classList.add('block-img-active');
-          purchases.push(target.dataset.id);
-          setPurchases(purchases);
+          selectCards.push(target.dataset.id);
         };
+        
+        saveSelectCards(selectCards);
       };
     });
   }
-  render(data, getPurchases) {
-    let purchases = getPurchases();
-    let newData = data.map(e => {
-      if (purchases.indexOf(String(e.id)) !== -1) {
-        return { ...e, buttonActiveClass: 'return', buttonTextContent: 'return', blockImgActive: 'block-img-active' };
-      } else {
-        return { ...e, buttonTextContent: 'buy' };
-      };
-    });
-    this.cardList.innerHTML = newData.map((e) => new Translator({ template: cardTemplate, data: e }).dataBinding()).join('');
+  createCard(dataCard, getSelectCards) {
+    let newDataCard = getSelectCards().indexOf(String(dataCard.id)) !== -1 ?
+    { ...dataCard, buttonActiveClass: 'return', buttonTextContent: 'return', blockImgActive: 'block-img-active' } :
+    { ...dataCard, buttonTextContent: 'buy' };
+    let fragment = new Translator({ template: cardTemplate, data: newDataCard }).createElement();
+    this.card = fragment.querySelector('.cart');
+    return this.card
   }
 }

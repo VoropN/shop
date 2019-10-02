@@ -3,12 +3,18 @@ import productTemplate from './product.html';
 import './product.sass';
 
 export class ProductView {
-  render() {
-    return Promise.resolve(new Translator({ template: productTemplate }).createElement())
-      .then(fragment => {
-        this.productListOutput = fragment.querySelector('.product-list');
-        globalContainer.appendChild(fragment);
-        return productListOutput;
-      });
+  constructor() {
+    this.createOutput();
+  }
+  createOutput() {
+    let fragment = new Translator({ template: productTemplate }).createElement();
+    this.productListOutput = fragment.querySelector('.product-list');
+    globalContainer.appendChild(fragment);
+  }
+  render(cardsForRender) {
+    let fragment = document.createDocumentFragment();
+    cardsForRender.forEach(cardForRender => fragment.append(cardForRender));
+    this.productListOutput.innerHTML = '';
+    this.productListOutput.appendChild(fragment);
   }
 }

@@ -1,9 +1,9 @@
 export class CardModel {
-  getPurchases() {
-    let data = sessionStorage.getItem('purchases');
+  getSelectCards() {
+    let data = sessionStorage.getItem('selectCards');
     return data ? data.split(',') : [];
   }
-  setPurchases(purchasesId) {
-    sessionStorage.setItem('purchases', purchasesId.toString())
+  saveSelectCards(selectCardsId) {
+    sessionStorage.setItem('selectCards', selectCardsId.toString())
   }
 }

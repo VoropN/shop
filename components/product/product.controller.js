@@ -1,15 +1,17 @@
-import { ProductModel } from "./product.model";
-import { ProductView } from "./product.view";
+import { ProductView } from './product.view';
+import { CardController } from '../card/card.controller';
+import { EventManager } from '../../src/event-manager';
 
 export class ProductController {
   constructor() {
-    this.productModel = new ProductModel();
     this.productView = new ProductView();
-    this.init();
+    new EventManager().subscribe('products', (dataCards) => this.giveToRender(dataCards));
   }
-  init() {
-    this.productView.render().then(productListOutput => {
-      this.cardList = new CardController(productListOutput);
-    })
+  giveToRender(dataCards) {
+    let cardsForRender = this.getCardsForRender(dataCards);
+    this.productView.render(cardsForRender);
+  }
+  getCardsForRender(dataCards) {
+    return dataCards.map(dataCard => new CardController(dataCard).cardView.card);
   }
 }

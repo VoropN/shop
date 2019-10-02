@@ -1,12 +1,8 @@
 export class CategoryModel {
-  getProductForCategory(data, filterOption) {
-    return (
-      filterOption.category === 'all' ?
-      data :
-      data.filter(product => product.type === filterOption.category)
-    );
+  filterProductsByCategory(dataCards, category) {
+    return category === 'all' || !category ? dataCards : dataCards.filter(product => product.type === category);
   }
-  getAllCategory(data) {
-    return [...new Set(data.map(product => product.type))];
+  getAllCategory(dataCards) {
+    return [...new Set(dataCards.map(product => product.type))];
   }
 }

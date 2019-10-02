@@ -1,35 +1,38 @@
-import { Translator } from '../../../src/translator';
+import { Translator } from '../../src/translator';
 import categoryTemplate from './category.html';
 import './category.sass';
 
 export class CategoryView  {
-  constructor(output, filterOpition) {
-    this.categoryOutput = output;
-    this.filterOption = filterOpition;
-    this.createActiveCategory();
-    this.bindButtonCategory();
+  constructor() {
+    this.createOutput();
+    this.createElemActiveCategory();
   }
-  bindButtonCategory() {
-    this.categoryOutput.addEventListener('click', (e) => {
+  bindButtonCategory(updateCategory, eventManager) {
+    this.categoriesOutput.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button')) {
         this.changeActiveCategory(target);
-        this.filterOption.category = target.textContent;
-        this.filterOption.update();
+        updateCategory(target.textContent);
+        eventManager.on('requestProducts');
       };
     })
   }
-  renderCategory(category) {
-    let all = new Translator({template: categoryTemplate, data: { category: 'all' } }).dataBinding();
-    this.categoryOutput.innerHTML = all + category.map(
-      (e) => new Translator({template: categoryTemplate, data: { category: e } }).dataBinding()).join('');
-    this.changeActiveCategory(this.categoryOutput.children[0]);
+  createOutput() {
+    this.categoriesOutput = document.createElement('div');
+    this.categoriesOutput.className = 'categories container';
+    globalContainer.insertBefore(this.categoriesOutput, globalContainer.firstChild);
   }
-  createActiveCategory() {
+  createElemActiveCategory() {
     this.activeCategory = document.createElement('div');
     this.activeCategory.className = 'category-active';
   }
   changeActiveCategory(before) {
-    this.categoryOutput.insertBefore(this.activeCategory, before);
+    this.categoriesOutput.insertBefore(this.activeCategory, before);
+  }
+  renderCategory(category) {
+    let all = new Translator({template: categoryTemplate, data: { category: 'all' } }).dataBinding();
+    this.categoriesOutput.innerHTML = all + category.map(
+      (e) => new Translator({template: categoryTemplate, data: { category: e } }).dataBinding()).join('');
+    this.changeActiveCategory(this.categoriesOutput.firstChild);
   }
 }

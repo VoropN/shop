@@ -1,5 +1,5 @@
-import { CategoryModel } from "./category.model";
-import { CategoryView } from "./category.view";
+import { CategoryModel } from './category.model';
+import { CategoryView } from './category.view';
 
 export class CategoryController {
   constructor(eventManager) {

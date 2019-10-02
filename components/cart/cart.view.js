@@ -9,7 +9,6 @@ import './cart.sass';
 export class CartView {
   constructor() {
     this.renderCart()
-
   }
   bucket() {
     this.cartElem.addEventListener('click', (e) => {

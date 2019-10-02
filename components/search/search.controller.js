@@ -11,7 +11,7 @@ export class SearchController {
   }
   filterProductsBySearch(dataCards) {
     let newDataCards = this.searchModel.filterProductsBySearch(dataCards, this.search);
-    this.eventManager.on('products', newDataCards);
+    this.eventManager.on('productsForPrice', newDataCards);
   }
   updateSearch(currentSearch) {
     this.search = currentSearch;

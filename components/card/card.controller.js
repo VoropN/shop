@@ -5,7 +5,6 @@ export class CardController {
   constructor(output) {
     this.cardView = new CardView(output);
     this.cardModel = new CardModel(output);
-    // this.setPurchases();
     this.cardView.bindButtonAdd(this.getPurchases.bind(this), this.setPurchases.bind(this));
   }
   getData(cards) {

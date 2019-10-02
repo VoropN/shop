@@ -5,8 +5,8 @@ export class SearchModel {
         ~String(product.color).indexOf(filterOption.search) ||
         ~String(product.name).indexOf(filterOption.search) ||
         ~String(product.gender).indexOf(filterOption.search) ||
-        ~String(product.price).indexOf(filterOption.search) ||
-        ~String(product.fur).indexOf(filterOption.search) 
+        ~String(product.price).indexOf(filterOption.search)  ||
+        (product.fur ? ~String(product.fur).indexOf(filterOption.search) : false)
       )
     })
   }

@@ -1,4 +1,4 @@
-export class ProductModel {
+export class Service {
   getData() {
     if (localStorage.getItem('product')) {
       return Promise.resolve(JSON.parse(localStorage.getItem('product')));

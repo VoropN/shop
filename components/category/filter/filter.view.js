@@ -12,11 +12,13 @@ export class FilterView {
     let sliderElem = this.filterOutput.querySelector('#slider');
     let slide = this.filterOutput.querySelector('#slide');
     let slider = new Slider({ elem: sliderElem, max: this.maxPrice });
+    let detail;
     sliderElem.addEventListener('slide', (event) => {
-      slide.innerHTML = event.detail + ' $';
+      detail = event.detail;
+      slide.innerHTML = detail;
     });
     sliderElem.addEventListener('change', (event) => {
-      this.filterOption.price = event.detail;
+      this.filterOption.price = detail;
       this.filterOption.update();
     });
   }

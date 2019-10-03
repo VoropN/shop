@@ -2,8 +2,7 @@ export class Service {
   constructor(eventManager) {
     this.eventManager = eventManager;
     this.eventManager.subscribe('requestProducts', () => this.request('productsForCategory'));
-    this.eventManager.subscribe('requestSelectedCardsForRender', () => this.getSelectedCards('selectedCardsForRender'));
-    this.eventManager.subscribe('requestSelectedCards', () => this.getSelectedCards('selectedCards'));
+    this.eventManager.subscribe('requestSelectedCardsId', () => this.publishId('selectedCardsId'));
     this.eventManager.subscribe('requestRemoveSelectedCard', (cardId) => this.removeSelectedCard(cardId));
     this.eventManager.subscribe('requestAddSelectedCard', (cardId) => this.addSelectedCard(cardId));
   }
@@ -17,17 +16,16 @@ export class Service {
       });
     }
   }
-  request(request) {
-    this.getData().then(dataCards => this.eventManager.publish(request, dataCards));
-  }
-  getSelectedCards(request) {
-    let dataJson = sessionStorage.getItem('SelectedCards');
-    let selectedCardsId = dataJson ? dataJson.split(',') : [];
-    this.eventManager.publish(request, selectedCardsId);
-  }
   getSelectedCardsId() {
     let selectedCards = sessionStorage.getItem('SelectedCards');
     return selectedCards ? selectedCards.split(',') : [];
+  }
+  request(request) {
+    this.eventManager.publish('requestSelectedCardsId');
+    this.getData().then(dataCards => this.eventManager.publish(request, dataCards));
+  }
+  publishId(request) {
+    this.eventManager.publish(request, this.getSelectedCardsId());
   }
   removeSelectedCard(cardId) {
     let arrayCardsId = this.getSelectedCardsId()

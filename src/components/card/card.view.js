@@ -5,8 +5,8 @@ import './card.sass';
 export class CardView {
   constructor(eventManager) {
     this.eventManager = eventManager;
-    this.eventManager.subscribe('selectedCards', (selectedCards) => {
-      this.selectedCards = selectedCards;
+    this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
+      this.selectedCardsId = selectedCardsId;
     });
   }
   createCard(dataCard, selectedCardsId) {

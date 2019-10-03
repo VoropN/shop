@@ -21,7 +21,7 @@ export class CartView {
     this.cartElem.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.backet')) {
-        this.eventManager.publish('requestSelectedCards');
+        this.eventManager.publish('requestSelectedCardsId');
         this.modal.classList.add('modal-open');
       } else if (target.closest('.close-modal')) {
         this.modal.classList.toggle('modal-open');

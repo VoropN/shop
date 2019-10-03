@@ -10,7 +10,7 @@ export class CartController {
     this.eventManager.subscribe('productsForCategory', (dataCards) => {
       this.dataCards = dataCards;
     });
-    this.eventManager.subscribe('selectedCards', (selectedCards) => {
+    this.eventManager.subscribe('selectedCardsId', (selectedCards) => {
       this.selectedCards = selectedCards;
       this.giveToRender();
     });

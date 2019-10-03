@@ -5,20 +5,18 @@ export class ProductController {
   constructor(eventManager) {
     this.eventManager = eventManager;
     this.productView = new ProductView(this.eventManager);
-    
     this.eventManager.subscribe('products', (dataCards) => {
       this.dataCards = dataCards;
-      this.eventManager.publish('requestSelectedCardsForRender');
+      this.giveToRender();
     });
-    this.eventManager.subscribe('selectedCardsForRender', (selectedCards) => {
-      this.selectedCards = selectedCards;
-      this.giveToRender()  
+    this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
+      this.selectedCardsId = selectedCardsId;
     });
     this.eventManager.publish('requestProducts');
   }
   giveToRender() {
     let cardsForRender = this.dataCards.map(
-      (dataCard) => new CardController(dataCard, this.selectedCards, this.eventManager).cardView.card);
+      (dataCard) => new CardController(dataCard, this.selectedCardsId, this.eventManager).cardView.card);
     this.productView.render(cardsForRender);
   }
 }

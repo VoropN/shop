@@ -1,4 +1,4 @@
-import { Translator } from '../../src/translator';
+import { Translator } from '../../translator';
 import categoryTemplate from './category.html';
 import './category.sass';
 

@@ -1,4 +1,4 @@
-import { Translator } from '../../src/translator';
+import { Translator } from '../../translator';
 import cartTemplate from './cart.html';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';

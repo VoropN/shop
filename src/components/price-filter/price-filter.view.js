@@ -1,4 +1,4 @@
-import { Translator } from '../../src/translator';
+import { Translator } from '../../translator';
 import priceFilterTemplate from './price-filter.html';
 import { Slider } from './slider';
 import './price-filter.sass';

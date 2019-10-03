@@ -1,4 +1,4 @@
-import { Translator } from '../../src/translator';
+import { Translator } from '../../translator';
 import cardTemplate from './card.html';
 import './card.sass';
 

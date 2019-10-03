@@ -1,4 +1,4 @@
-import { Translator } from '../../src/translator';
+import { Translator } from '../../translator';
 import searchTemplate from './search.html';
 import './search.sass';
 

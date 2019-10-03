@@ -3,21 +3,13 @@ import productTemplate from './product.html';
 import './product.sass';
 
 export class ProductView {
-  constructor(eventManager) {
-    this.eventManager = eventManager;
+  constructor() {
     this.createOutput();
-    this.eventManager.subscribe('removeSelectedCard', (selectedCardId) => {
-      this.removeSelectedCard(selectedCardId);
-    });
-    this.eventManager.subscribe('addSelectedCard', (selectedCardId) => {
-      this.addSelectedCard(selectedCardId);
-    });
   }
   createOutput() {
     let fragment = new Translator({ template: productTemplate }).createElement();
     this.productListOutput = fragment.querySelector('.product-list');
     globalContainer.appendChild(fragment);
-    this.bindButtonBuy();
   }
   render(cardsForRender) {
     let fragment = document.createDocumentFragment();
@@ -25,14 +17,14 @@ export class ProductView {
     this.productListOutput.innerHTML = '';
     this.productListOutput.appendChild(fragment);
   }
-  bindButtonBuy() {
+  bindButtonBuy(removeSelectedCard, addSelectedCard) {
     this.productListOutput.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button-buy')) {
         if (target.closest('.return')) {
-          this.eventManager.publish('requestRemoveSelectedCard', target.dataset.id);
+          removeSelectedCard(target.dataset.id);
         } else {
-          this.eventManager.publish('requestAddSelectedCard', target.dataset.id);
+          addSelectedCard(target.dataset.id)
         };
       };
     });

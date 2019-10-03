@@ -1,10 +1,16 @@
 import { ProductView } from './product.view';
 import { CardController } from '../card/card.controller';
+import { ProductModel } from './product.model';
 
 export class ProductController {
   constructor(eventManager) {
     this.eventManager = eventManager;
-    this.productView = new ProductView(this.eventManager);
+    this.productView = new ProductView();
+    this.productModel = new ProductModel();
+    this.init();
+  }
+  init() {
+    this.productView.bindButtonBuy(this.removeSelectedCard.bind(this), this.addSelectedCard.bind(this));
     this.eventManager.subscribe('products', (dataCards) => {
       this.dataCards = dataCards;
       this.giveToRender();
@@ -12,11 +18,30 @@ export class ProductController {
     this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
       this.selectedCardsId = selectedCardsId;
     });
-    this.eventManager.publish('requestProducts');
+    this.eventManager.subscribe('removeSelectedCard', (selectedCardId) => {
+      this.productView.removeSelectedCard(selectedCardId);
+    });
+    this.eventManager.subscribe('addSelectedCard', (selectedCardId) => {
+      this.productView.addSelectedCard(selectedCardId);
+    });
+
+    this.productModel.getData().then(dataCards => {
+      this.selectedCardsId = this.productModel.getSelectedCardsId();
+      this.eventManager.publish('productsForCategory', dataCards);
+      this.eventManager.publish('selectedCardsId', this.selectedCardsId);
+    });
   }
   giveToRender() {
     let cardsForRender = this.dataCards.map(
       (dataCard) => new CardController(dataCard, this.selectedCardsId, this.eventManager).cardView.card);
     this.productView.render(cardsForRender);
+  }
+  removeSelectedCard(cardId) {
+    this.productModel.removeSelectedCard(cardId);
+    this.eventManager.publish('removeSelectedCard', cardId);
+  }
+  addSelectedCard(cardId) {
+    this.productModel.addSelectedCard(cardId);
+    this.eventManager.publish('addSelectedCard', cardId);
   }
 }

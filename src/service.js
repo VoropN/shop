@@ -1,9 +1,11 @@
 export class Service {
   constructor(eventManager) {
     this.eventManager = eventManager;
-    this.eventManager.subscribe('requestProducts', () => {
-      this.getData().then(dataCards => this.eventManager.on('productsForCategory', dataCards))
-    })
+    this.eventManager.subscribe('requestProducts', () => this.request('productsForCategory'));
+    this.eventManager.subscribe('requestProductsForBasket', () => this.request('productsForBasket'));
+    this.eventManager.subscribe('requestSelectedCards', () => this.getSelectedCards('selectedCards'));
+    this.eventManager.subscribe('requestSelectedCardsForRender', () => this.getSelectedCards('selectedCardsForRender'));
+    this.eventManager.subscribe('saveSelectedCards', (SelectedCardsId) => this.saveSelectedCards(SelectedCardsId));
   }
   getData() {
     if (localStorage.getItem('product')) {
@@ -14,5 +16,16 @@ export class Service {
         return data;
       });
     }
+  }
+  request(request) {
+    this.getData().then(dataCards => this.eventManager.on(request, dataCards));
+  }
+  getSelectedCards(request) {
+    let dataJson = sessionStorage.getItem('SelectedCards');
+    let dataArr = dataJson ? dataJson.split(',') : [];
+    this.eventManager.on(request, dataArr);
+  }
+  saveSelectedCards(SelectedCardsId) {
+    sessionStorage.setItem('SelectedCards', SelectedCardsId.toString())
   }
 }

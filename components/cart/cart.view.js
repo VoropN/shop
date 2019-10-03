@@ -7,13 +7,15 @@ import '@fortawesome/fontawesome-free/js/brands';
 import './cart.sass';
 
 export class CartView {
-  constructor() {
+  constructor(eventManager) {
+    this.eventManager = eventManager;
     this.renderCart()
   }
   bucket() {
     this.cartElem.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.backet')) {
+        this.eventManager.on('requestProductsForBasket');
         this.modal.classList.add('modal-open');
       } else if (target.closest('.close-modal')) {
         this.modal.classList.toggle('modal-open');
@@ -23,13 +25,11 @@ export class CartView {
     });
   }
   renderCart() {
-    Promise.resolve(new Translator({ template: cartTemplate }).createElement())
-      .then(fragment => {
-        this.cartElem = fragment.querySelector('#cart');
-        this.modal = fragment.querySelector('.modal');
-        globalContainer.insertBefore(fragment, globalContainer.firstChild);
-        this.bucket();
-      });
+    let fragment = new Translator({ template: cartTemplate }).createElement();
+    this.cartElem = fragment.querySelector('#cart');
+    this.modal = fragment.querySelector('.modal');
+    globalContainer.insertBefore(fragment, globalContainer.firstChild);
+    this.bucket();
   }
   renderContentCart() {
   }

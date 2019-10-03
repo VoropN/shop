@@ -3,6 +3,6 @@ export class CategoryModel {
     return category === 'all' || !category ? dataCards : dataCards.filter(product => product.type === category);
   }
   getAllCategory(dataCards) {
-    return [...new Set(dataCards.map(product => product.type))];
+    return [...new Set(dataCards.map(product => product.type).sort())];
   }
 }

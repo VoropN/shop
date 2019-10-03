@@ -3,12 +3,6 @@ import cardTemplate from './card.html';
 import './card.sass';
 
 export class CardView {
-  constructor(eventManager) {
-    this.eventManager = eventManager;
-    this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
-      this.selectedCardsId = selectedCardsId;
-    });
-  }
   createCard(dataCard, selectedCardsId) {
     let newDataCard = selectedCardsId.indexOf(String(dataCard.id)) !== -1 ?
       { ...dataCard, buttonActiveClass: 'return', buttonTextContent: 'return', blockImgActive: 'block-img-active' } :

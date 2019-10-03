@@ -7,13 +7,13 @@ export class CategoryView  {
     this.createOutput();
     this.createElemActiveCategory();
   }
-  bindButtonCategory(updateCategory, eventManager) {
+  bindButtonCategory(updateCategory, getProduct) {
     this.categoriesOutput.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button')) {
         this.changeActiveCategory(target);
         updateCategory(target.textContent);
-        eventManager.publish('requestProducts');
+        getProduct();
       };
     })
   }

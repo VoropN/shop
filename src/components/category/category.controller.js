@@ -6,6 +6,9 @@ export class CategoryController {
     this.eventManager = eventManager;
     this.categoryModel = new CategoryModel();
     this.categoryView = new CategoryView();
+    this.init();
+  }
+  init() {
     let isNotRenderAllCategory = true;
     this.eventManager.subscribe('productsForCategory', (dataCards) => {
       if (isNotRenderAllCategory) {
@@ -14,17 +17,24 @@ export class CategoryController {
       };
       this.filterProductsByCategory(dataCards);
     });
-    this.categoryView.bindButtonCategory(this.updateCategory.bind(this), this.eventManager);
+    this.categoryView.bindButtonCategory(this.updateCategory.bind(this), this.getProduct.bind(this));
   }
   updateCategory(currentCategory) {
     this.category = currentCategory;
   }
   filterProductsByCategory(dataCards) {
     let newDataCards = this.categoryModel.filterProductsByCategory(dataCards, this.category);
-    this.eventManager.publish('productsForSeach', newDataCards)
+    this.eventManager.publish('productsForSeach', newDataCards);
   }
   getAllCategory(dataCards) {
     let availableСategories = this.categoryModel.getAllCategory(dataCards);
     this.categoryView.renderCategory(availableСategories);
+  }
+  getProduct() {
+    this.categoryModel.getData().then(dataCards => {
+      this.selectedCardsId = this.categoryModel.getSelectedCardsId();
+      this.eventManager.publish('selectedCardsId', this.selectedCardsId);
+      this.filterProductsByCategory(dataCards);
+    });
   }
 }

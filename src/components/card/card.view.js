@@ -9,6 +9,6 @@ export class CardView {
       { ...dataCard, buttonTextContent: 'buy' };
     let fragment = new Translator({ template: cardTemplate, data: newDataCard }).createElement();
     this.card = fragment.querySelector('.cart');
-    return this.card
+    return this.card;
   }
 }

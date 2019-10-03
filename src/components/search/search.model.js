@@ -7,7 +7,7 @@ export class SearchModel {
         ~String(product.gender).indexOf(search) ||
         ~String(product.price).indexOf(search)  ||
         (product.fur ? ~String(product.fur).indexOf(search) : false)
-      )
-    })
+      );
+    });
   }
 }

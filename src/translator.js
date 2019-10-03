@@ -1,5 +1,5 @@
 export class Translator {
-  constructor({ template, data = {}}) {
+  constructor({ template, data = {} }) {
     this.template = template;
     this.data = data;
   }
@@ -16,7 +16,7 @@ export class Translator {
     let element = document.createElement('div');
     let fragment = document.createDocumentFragment();
     element.innerHTML = this.dataBinding();
-    [...element.children].forEach(e => fragment.append(e))
+    [...element.children].forEach(e => fragment.append(e));
     return fragment;
   }
 }

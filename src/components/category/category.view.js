@@ -15,7 +15,7 @@ export class CategoryView  {
         updateCategory(target.textContent);
         getProduct();
       };
-    })
+    });
   }
   createOutput() {
     this.categoriesOutput = document.createElement('div');

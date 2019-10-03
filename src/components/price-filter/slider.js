@@ -19,7 +19,7 @@ export function Slider(options) {
     if (event.target.closest('.thumb')) {
       startDrag(event.clientX, event.clientY);
       return false; // disable selection start (cursor change)
-    }
+    };
   }
 
   function startDrag(startClientX, startClientY) {

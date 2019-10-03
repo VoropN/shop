@@ -10,7 +10,7 @@ export class SearchController {
   }
   init() {
     this.searchView.inputSeach(this.updateSearch.bind(this), this.getProduct.bind(this));
-    this.eventManager.subscribe('productsForSeach', (dataCards) => this.filterProductsBySearch(dataCards))
+    this.eventManager.subscribe('productsForSeach', (dataCards) => this.filterProductsBySearch(dataCards));
   }
   filterProductsBySearch(dataCards) {
     let newDataCards = this.searchModel.filterProductsBySearch(dataCards, this.search);

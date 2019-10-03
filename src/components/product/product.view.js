@@ -24,7 +24,7 @@ export class ProductView {
         if (target.closest('.return')) {
           removeSelectedCard(target.dataset.id);
         } else {
-          addSelectedCard(target.dataset.id)
+          addSelectedCard(target.dataset.id);
         };
       };
     });

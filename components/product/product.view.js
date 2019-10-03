@@ -9,6 +9,12 @@ export class ProductView {
     this.eventManager.subscribe('selectedCards', (selectedCards) => {
       this.selectedCards = selectedCards;
     });
+    this.eventManager.subscribe('deleteItem', (selectedCardId) => {
+      this.deleteItem(selectedCardId);
+    });
+    this.eventManager.subscribe('addItem', (selectedCardId) => {
+      this.addItem(selectedCardId);
+    });
   }
   createOutput() {
     let fragment = new Translator({ template: productTemplate }).createElement();
@@ -43,4 +49,16 @@ export class ProductView {
       };
     });
   }
+  deleteItem(selectedCardId) {
+    let target = this.productListOutput.querySelector(`[data-id="${selectedCardId}"]`);
+    target.classList.remove('return');
+    target.textContent = 'buy';
+    target.parentNode.parentNode.classList.remove('block-img-active');
+  };
+  addItem(selectedCardId) {
+    let target = this.productListOutput.querySelector(`[data-id="${selectedCardId}"]`);
+    target.classList.add('return');
+    target.textContent = 'return';
+    target.parentNode.parentNode.classList.add('block-img-active');
+  };
 }

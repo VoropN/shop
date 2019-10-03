@@ -3,6 +3,7 @@ export class Service {
     this.eventManager = eventManager;
     this.eventManager.subscribe('requestProducts', () => this.request('productsForCategory'));
     this.eventManager.subscribe('requestProductsForBasket', () => this.request('productsForBasket'));
+    this.eventManager.subscribe('requestSelectedCardsForBasket', () => this.getSelectedCards('selectedCardsForBasket'));
     this.eventManager.subscribe('requestSelectedCards', () => this.getSelectedCards('selectedCards'));
     this.eventManager.subscribe('requestSelectedCardsForRender', () => this.getSelectedCards('selectedCardsForRender'));
     this.eventManager.subscribe('saveSelectedCards', (SelectedCardsId) => this.saveSelectedCards(SelectedCardsId));

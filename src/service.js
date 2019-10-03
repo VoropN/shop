@@ -2,11 +2,10 @@ export class Service {
   constructor(eventManager) {
     this.eventManager = eventManager;
     this.eventManager.subscribe('requestProducts', () => this.request('productsForCategory'));
-    this.eventManager.subscribe('requestProductsForBasket', () => this.request('productsForBasket'));
-    this.eventManager.subscribe('requestSelectedCardsForBasket', () => this.getSelectedCards('selectedCardsForBasket'));
-    this.eventManager.subscribe('requestSelectedCards', () => this.getSelectedCards('selectedCards'));
     this.eventManager.subscribe('requestSelectedCardsForRender', () => this.getSelectedCards('selectedCardsForRender'));
-    this.eventManager.subscribe('saveSelectedCards', (SelectedCardsId) => this.saveSelectedCards(SelectedCardsId));
+    this.eventManager.subscribe('requestSelectedCards', () => this.getSelectedCards('selectedCards'));
+    this.eventManager.subscribe('requestRemoveSelectedCard', (cardId) => this.removeSelectedCard(cardId));
+    this.eventManager.subscribe('requestAddSelectedCard', (cardId) => this.addSelectedCard(cardId));
   }
   getData() {
     if (localStorage.getItem('product')) {
@@ -23,10 +22,23 @@ export class Service {
   }
   getSelectedCards(request) {
     let dataJson = sessionStorage.getItem('SelectedCards');
-    let dataArr = dataJson ? dataJson.split(',') : [];
-    this.eventManager.publish(request, dataArr);
+    let selectedCardsId = dataJson ? dataJson.split(',') : [];
+    this.eventManager.publish(request, selectedCardsId);
   }
-  saveSelectedCards(SelectedCardsId) {
-    sessionStorage.setItem('SelectedCards', SelectedCardsId.toString())
+  getSelectedCardsId() {
+    let selectedCards = sessionStorage.getItem('SelectedCards');
+    return selectedCards ? selectedCards.split(',') : [];
+  }
+  removeSelectedCard(cardId) {
+    let arrayCardsId = this.getSelectedCardsId()
+    arrayCardsId = this.getSelectedCardsId().filter(id => id != cardId);
+    sessionStorage.setItem('SelectedCards', arrayCardsId.toString());
+    this.eventManager.publish('removeSelectedCard', cardId);
+  }
+  addSelectedCard(cardId) {
+    let arrayCardsId = this.getSelectedCardsId()
+    arrayCardsId.push(cardId);
+    sessionStorage.setItem('SelectedCards', arrayCardsId.toString());
+    this.eventManager.publish('addSelectedCard', cardId);
   }
 }

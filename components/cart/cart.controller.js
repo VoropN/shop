@@ -5,12 +5,12 @@ export class CartController {
   constructor(eventManager) {
     this.eventManager = eventManager;
     this.cartView = new CartView(eventManager);
+    this.cartView.bucket();
 
-    this.eventManager.subscribe('productsForBasket', (dataCards) => {
+    this.eventManager.subscribe('productsForCategory', (dataCards) => {
       this.dataCards = dataCards;
-      this.eventManager.publish('requestSelectedCardsForBasket');
     });
-    this.eventManager.subscribe('selectedCardsForBasket', (selectedCards) => {
+    this.eventManager.subscribe('selectedCards', (selectedCards) => {
       this.selectedCards = selectedCards;
       this.giveToRender();
     });

@@ -6,14 +6,11 @@ export class ProductView {
   constructor(eventManager) {
     this.eventManager = eventManager;
     this.createOutput();
-    this.eventManager.subscribe('selectedCards', (selectedCards) => {
-      this.selectedCards = selectedCards;
+    this.eventManager.subscribe('removeSelectedCard', (selectedCardId) => {
+      this.removeSelectedCard(selectedCardId);
     });
-    this.eventManager.subscribe('deleteItem', (selectedCardId) => {
-      this.deleteItem(selectedCardId);
-    });
-    this.eventManager.subscribe('addItem', (selectedCardId) => {
-      this.addItem(selectedCardId);
+    this.eventManager.subscribe('addSelectedCard', (selectedCardId) => {
+      this.addSelectedCard(selectedCardId);
     });
   }
   createOutput() {
@@ -32,24 +29,15 @@ export class ProductView {
     this.productListOutput.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button-buy')) {
-        this.eventManager.publish('requestSelectedCards');
         if (target.closest('.return')) {
-          this.selectedCards = this.selectedCards.filter(id => id != target.dataset.id);
-          target.classList.remove('return');
-          target.textContent = 'buy';
-          target.parentNode.parentNode.classList.remove('block-img-active');
+          this.eventManager.publish('requestRemoveSelectedCard', target.dataset.id);
         } else {
-          this.selectedCards.push(target.dataset.id);
-          target.classList.add('return');
-          target.textContent = 'return';
-          target.parentNode.parentNode.classList.add('block-img-active');
+          this.eventManager.publish('requestAddSelectedCard', target.dataset.id);
         };
-
-        this.eventManager.publish('saveSelectedCards', this.selectedCards);
       };
     });
   }
-  deleteItem(selectedCardId) {
+  removeSelectedCard(selectedCardId) {
     let target = this.productListOutput.querySelector(`[data-id="${selectedCardId}"]`);
     if (target) {
       target.classList.remove('return');
@@ -57,12 +45,12 @@ export class ProductView {
       target.parentNode.parentNode.classList.remove('block-img-active');
     };
   };
-  addItem(selectedCardId) {
+  addSelectedCard(selectedCardId) {
     let target = this.productListOutput.querySelector(`[data-id="${selectedCardId}"]`);
     if (target) {
       target.classList.add('return');
       target.textContent = 'return';
       target.parentNode.parentNode.classList.add('block-img-active');
-    }
+    };
   };
 }

@@ -10,43 +10,33 @@ export class CartView {
   constructor(eventManager) {
     this.eventManager = eventManager;
     this.renderCart();
-    this.eventManager.subscribe('selectedCards', (selectedCards) => {
-      this.selectedCards = selectedCards;
+    this.eventManager.subscribe('removeSelectedCard', (selectedCardId) => {
+      this.removeSelectedCard(selectedCardId);
+    });
+    this.eventManager.subscribe('addSelectedCard', (selectedCardId) => {
+      this.addSelectedCard(selectedCardId);
     });
   }
   bucket() {
     this.cartElem.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.backet')) {
-        this.eventManager.publish('requestProductsForBasket');
+        this.eventManager.publish('requestSelectedCards');
         this.modal.classList.add('modal-open');
       } else if (target.closest('.close-modal')) {
         this.modal.classList.toggle('modal-open');
-      } else if (target.closest('.modal-content')) {
-        return;
-      }
+      };
     });
   }
   bindButtonBuy() {
     this.content.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button-buy')) {
-        this.eventManager.publish('requestSelectedCards');
         if (target.closest('.return')) {
-          this.selectedCards = this.selectedCards.filter(id => id != target.dataset.id);
-          target.classList.remove('return');
-          target.textContent = 'buy';
-          target.parentNode.parentNode.classList.remove('block-img-active');
-          this.eventManager.publish('deleteItem', target.dataset.id);
+          this.eventManager.publish('requestRemoveSelectedCard', target.dataset.id);
         } else {
-          this.selectedCards.push(target.dataset.id);
-          target.classList.add('return');
-          target.textContent = 'return';
-          target.parentNode.parentNode.classList.add('block-img-active');
-          this.eventManager.publish('addItem', target.dataset.id);
+          this.eventManager.publish('requestAddSelectedCard', target.dataset.id);
         };
-
-        this.eventManager.publish('saveSelectedCards', this.selectedCards);
       };
     });
   }
@@ -57,7 +47,6 @@ export class CartView {
     this.modal = fragment.querySelector('.modal');
     this.textForIfNotPet = fragment.querySelector('.have-not-pet');
     globalContainer.append(fragment);
-    this.bucket();
     this.bindButtonBuy();
   }
   renderContentCart(cards) {
@@ -71,4 +60,20 @@ export class CartView {
     this.content.innerHTML = '';
     this.content.appendChild(fragment);
   }
+  removeSelectedCard(selectedCardId) {
+    let target = this.content.querySelector(`[data-id="${selectedCardId}"]`);
+    if (target) {
+      target.classList.remove('return');
+      target.textContent = 'buy';
+      target.parentNode.parentNode.classList.remove('block-img-active');
+    };
+  };
+  addSelectedCard(selectedCardId) {
+    let target = this.content.querySelector(`[data-id="${selectedCardId}"]`);
+    if (target) {
+      target.classList.add('return');
+      target.textContent = 'return';
+      target.parentNode.parentNode.classList.add('block-img-active');
+    };
+  };
 }

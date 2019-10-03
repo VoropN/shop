@@ -23,7 +23,7 @@ export class PriceFilterView {
     });
     sliderElem.addEventListener('change', (event) => {
       updatePriceFilter(detail);
-      eventManager.on('requestProducts');
+      eventManager.publish('requestProducts');
     });
   }
   renderFilter(max, eventManager, updatePriceFilter) {

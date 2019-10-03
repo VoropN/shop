@@ -8,13 +8,13 @@ export class ProductController {
     
     this.eventManager.subscribe('products', (dataCards) => {
       this.dataCards = dataCards;
-      this.eventManager.on('requestSelectedCardsForRender');
+      this.eventManager.publish('requestSelectedCardsForRender');
     });
     this.eventManager.subscribe('selectedCardsForRender', (selectedCards) => {
       this.selectedCards = selectedCards;
       this.giveToRender()  
     });
-
+    this.eventManager.publish('requestProducts');
   }
   giveToRender() {
     let cardsForRender = this.dataCards.map(

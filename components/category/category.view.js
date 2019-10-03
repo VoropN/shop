@@ -13,7 +13,7 @@ export class CategoryView  {
       if (target.closest('.button')) {
         this.changeActiveCategory(target);
         updateCategory(target.textContent);
-        eventManager.on('requestProducts');
+        eventManager.publish('requestProducts');
       };
     })
   }

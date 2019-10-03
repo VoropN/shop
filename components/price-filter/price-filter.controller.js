@@ -17,7 +17,7 @@ export class PriceFilterController {
   }
   filterProductsByPrice(dataCards) {
     let newDataCards = this.filterModel.filterProductsByPrice(dataCards, this.price);
-    this.eventManager.on('products', newDataCards);
+    this.eventManager.publish('products', newDataCards);
   }
   determineMaxPrice(dataCards) {
     let max = Math.max(...dataCards.map(dataCard => dataCard.price));

@@ -32,7 +32,7 @@ export class ProductView {
     this.productListOutput.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button-buy')) {
-        this.eventManager.on('requestSelectedCards');
+        this.eventManager.publish('requestSelectedCards');
         if (target.closest('.return')) {
           this.selectedCards = this.selectedCards.filter(id => id != target.dataset.id);
           target.classList.remove('return');
@@ -45,7 +45,7 @@ export class ProductView {
           target.parentNode.parentNode.classList.add('block-img-active');
         };
 
-        this.eventManager.on('saveSelectedCards', this.selectedCards);
+        this.eventManager.publish('saveSelectedCards', this.selectedCards);
       };
     });
   }

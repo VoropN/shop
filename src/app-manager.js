@@ -15,6 +15,5 @@ export class AppManager {
     this.searchController = new SearchController(this.eventManager);
     this.categoryController = new CategoryController(this.eventManager);
     this.cartController = new CartController(this.eventManager);
-    this.eventManager.on('requestProducts');
   }
 }

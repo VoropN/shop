@@ -19,12 +19,12 @@ export class Service {
     }
   }
   request(request) {
-    this.getData().then(dataCards => this.eventManager.on(request, dataCards));
+    this.getData().then(dataCards => this.eventManager.publish(request, dataCards));
   }
   getSelectedCards(request) {
     let dataJson = sessionStorage.getItem('SelectedCards');
     let dataArr = dataJson ? dataJson.split(',') : [];
-    this.eventManager.on(request, dataArr);
+    this.eventManager.publish(request, dataArr);
   }
   saveSelectedCards(SelectedCardsId) {
     sessionStorage.setItem('SelectedCards', SelectedCardsId.toString())

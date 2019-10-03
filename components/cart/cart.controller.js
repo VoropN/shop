@@ -8,7 +8,7 @@ export class CartController {
 
     this.eventManager.subscribe('productsForBasket', (dataCards) => {
       this.dataCards = dataCards;
-      this.eventManager.on('requestSelectedCardsForBasket');
+      this.eventManager.publish('requestSelectedCardsForBasket');
     });
     this.eventManager.subscribe('selectedCardsForBasket', (selectedCards) => {
       this.selectedCards = selectedCards;

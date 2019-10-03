@@ -21,7 +21,7 @@ export class CategoryController {
   }
   filterProductsByCategory(dataCards) {
     let newDataCards = this.categoryModel.filterProductsByCategory(dataCards, this.category);
-    this.eventManager.on('productsForSeach', newDataCards)
+    this.eventManager.publish('productsForSeach', newDataCards)
   }
   getAllCategory(dataCards) {
     let availableСategories = this.categoryModel.getAllCategory(dataCards);

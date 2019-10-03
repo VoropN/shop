@@ -55,7 +55,7 @@ export class CartView {
     this.cartElem = fragment.querySelector('#cart');
     this.content = fragment.querySelector('.modal-content-inner');
     this.modal = fragment.querySelector('.modal');
-    globalContainer.insertBefore(fragment, globalContainer.firstChild);
+    globalContainer.append(fragment);
     this.bucket();
     this.bindButtonBuy();
   }

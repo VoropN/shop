@@ -51,14 +51,18 @@ export class ProductView {
   }
   deleteItem(selectedCardId) {
     let target = this.productListOutput.querySelector(`[data-id="${selectedCardId}"]`);
-    target.classList.remove('return');
-    target.textContent = 'buy';
-    target.parentNode.parentNode.classList.remove('block-img-active');
+    if (target) {
+      target.classList.remove('return');
+      target.textContent = 'buy';
+      target.parentNode.parentNode.classList.remove('block-img-active');
+    };
   };
   addItem(selectedCardId) {
     let target = this.productListOutput.querySelector(`[data-id="${selectedCardId}"]`);
-    target.classList.add('return');
-    target.textContent = 'return';
-    target.parentNode.parentNode.classList.add('block-img-active');
+    if (target) {
+      target.classList.add('return');
+      target.textContent = 'return';
+      target.parentNode.parentNode.classList.add('block-img-active');
+    }
   };
 }

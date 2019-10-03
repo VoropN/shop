@@ -1,7 +1,7 @@
 export class Service {
   constructor(eventManager) {
     this.eventManager = eventManager;
-    this.eventManager.subscribe('requestProducts', () => this.request('productsForCategory'));
+    this.eventManager.subscribe('requestProducts', () => this.request('productsBeforeFiltration'));
     this.eventManager.subscribe('requestSelectedCardsId', () => this.publishId('selectedCardsId'));
     this.eventManager.subscribe('requestRemoveSelectedCard', (cardId) => this.removeSelectedCard(cardId));
     this.eventManager.subscribe('requestAddSelectedCard', (cardId) => this.addSelectedCard(cardId));

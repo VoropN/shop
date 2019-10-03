@@ -12,7 +12,7 @@ export class PriceFilterView {
     this.priceFilterOutput.className = 'price-filter container';
     globalContainer.insertBefore(this.priceFilterOutput, globalContainer.firstChild);
   }
-  sliderPrice(max, eventManager, updatePriceFilter) {
+  sliderPrice(max, getProduct, updatePriceFilter) {
     let sliderElem = this.priceFilterOutput.querySelector('#slider');
     let slide = this.priceFilterOutput.querySelector('#slide');
     let slider = new Slider({ elem: sliderElem, max });
@@ -23,7 +23,7 @@ export class PriceFilterView {
     });
     sliderElem.addEventListener('change', (event) => {
       updatePriceFilter(detail);
-      eventManager.publish('requestProducts');
+      getProduct();
     });
   }
   renderFilter(max, eventManager, updatePriceFilter) {

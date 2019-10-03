@@ -6,6 +6,9 @@ export class PriceFilterController {
     this.eventManager = eventManager;
     this.filterModel = new PriceFilterModel();
     this.filterView = new PriceFilterView();
+    this.init();
+  }
+  init() {
     let isNotRenderPriceFilter = true;
     this.eventManager.subscribe('productsForPrice', (dataCards) => {
       if(isNotRenderPriceFilter) {
@@ -21,9 +24,12 @@ export class PriceFilterController {
   }
   determineMaxPrice(dataCards) {
     let max = Math.max(...dataCards.map(dataCard => dataCard.price));
-    this.filterView.renderFilter(max, this.eventManager, this.updatePriceFilter.bind(this));
+    this.filterView.renderFilter(max, this.getProduct.bind(this), this.updatePriceFilter.bind(this));
   }
   updatePriceFilter(currentPrice) {
     this.price = currentPrice;
+  }
+  getProduct() {
+    this.eventManager.publish('requestProducts');
   }
 }

@@ -7,35 +7,28 @@ import '@fortawesome/fontawesome-free/js/brands';
 import './cart.sass';
 
 export class CartView {
-  constructor(eventManager) {
-    this.eventManager = eventManager;
+  constructor() {
     this.renderCart();
-    this.eventManager.subscribe('removeSelectedCard', (selectedCardId) => {
-      this.removeSelectedCard(selectedCardId);
-    });
-    this.eventManager.subscribe('addSelectedCard', (selectedCardId) => {
-      this.addSelectedCard(selectedCardId);
-    });
   }
-  bucket() {
+  bucket(getSelectedCardsId) {
     this.cartElem.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.backet')) {
-        this.eventManager.publish('requestSelectedCardsId');
+        getSelectedCardsId();
         this.modal.classList.add('modal-open');
       } else if (target.closest('.close-modal')) {
         this.modal.classList.toggle('modal-open');
       };
     });
   }
-  bindButtonBuy() {
+  bindButtonBuy(removeSelectedCard, addSelectedCard) {
     this.content.addEventListener('click', (e) => {
       let target = e.target;
       if (target.closest('.button-buy')) {
         if (target.closest('.return')) {
-          this.eventManager.publish('requestRemoveSelectedCard', target.dataset.id);
+          removeSelectedCard(target.dataset.id);
         } else {
-          this.eventManager.publish('requestAddSelectedCard', target.dataset.id);
+          addSelectedCard(target.dataset.id);
         };
       };
     });
@@ -45,18 +38,17 @@ export class CartView {
     this.cartElem = fragment.querySelector('#cart');
     this.content = fragment.querySelector('.modal-content-inner');
     this.modal = fragment.querySelector('.modal');
-    this.textForIfNotPet = fragment.querySelector('.have-not-pet');
+    this.textIfNotPet = fragment.querySelector('.have-not-pet');
     globalContainer.append(fragment);
-    this.bindButtonBuy();
   }
   renderContentCart(cards) {
     let fragment = document.createDocumentFragment();
     cards.forEach(cardForRender => fragment.append(cardForRender));
     if (!cards.length) {
-      this.textForIfNotPet.textContent = 'You haven\'t selected pet yet!';
+      this.textIfNotPet.textContent = 'You haven\'t selected pet yet!';
     } else {
-      this.textForIfNotPet.textContent = '';
-    }
+      this.textIfNotPet.textContent = '';
+    };
     this.content.innerHTML = '';
     this.content.appendChild(fragment);
   }

@@ -10,7 +10,7 @@ export class CategoryController {
   }
   init() {
     let isNotRenderAllCategory = true;
-    this.eventManager.subscribe('productsForCategory', (dataCards) => {
+    this.eventManager.subscribe('productsBeforeFiltration', (dataCards) => {
       if (isNotRenderAllCategory) {
         isNotRenderAllCategory = false;
         this.getAllCategory(dataCards);

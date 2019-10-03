@@ -15,6 +15,11 @@ export class ProductController {
       this.dataCards = dataCards;
       this.giveToRender();
     });
+    this.eventManager.subscribe('requestProducts', () => {
+      this.selectedCardsId = this.productModel.getSelectedCardsId();
+      this.eventManager.publish('selectedCardsId', this.selectedCardsId);
+      this.productModel.getData().then(dataCards => this.eventManager.publish('productsForCategory', dataCards));
+    });
     this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
       this.selectedCardsId = selectedCardsId;
     });
@@ -24,12 +29,7 @@ export class ProductController {
     this.eventManager.subscribe('addSelectedCard', (selectedCardId) => {
       this.productView.addSelectedCard(selectedCardId);
     });
-
-    this.productModel.getData().then(dataCards => {
-      this.selectedCardsId = this.productModel.getSelectedCardsId();
-      this.eventManager.publish('productsForCategory', dataCards);
-      this.eventManager.publish('selectedCardsId', this.selectedCardsId);
-    });
+    this.eventManager.publish('requestProducts');
   }
   giveToRender() {
     let cardsForRender = this.dataCards.map(

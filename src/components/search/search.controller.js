@@ -6,7 +6,10 @@ export class SearchController {
     this.eventManager = eventManager;
     this.searchModel = new SearchModel();
     this.searchView = new SearchView();
-    this.searchView.inputSeach(this.updateSearch.bind(this), this.eventManager);
+    this.init();
+  }
+  init() {
+    this.searchView.inputSeach(this.updateSearch.bind(this), this.getProduct.bind(this));
     this.eventManager.subscribe('productsForSeach', (dataCards) => this.filterProductsBySearch(dataCards))
   }
   filterProductsBySearch(dataCards) {
@@ -15,5 +18,8 @@ export class SearchController {
   }
   updateSearch(currentSearch) {
     this.search = currentSearch;
+  }
+  getProduct() {
+    this.eventManager.publish('requestProducts');
   }
 }

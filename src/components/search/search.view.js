@@ -7,10 +7,10 @@ export class SearchView {
     this.createOutput();
     this.renderSearch();
   }
-  inputSeach(updateSearch, eventManager) {
+  inputSeach(updateSearch, getProduct) {
     this.searchOutput.addEventListener('input', (e) => {
       updateSearch(e.target.value);
-      eventManager.publish('requestProducts');
+      getProduct();
     });
   }
   createOutput() {

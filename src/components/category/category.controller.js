@@ -31,10 +31,6 @@ export class CategoryController {
     this.categoryView.renderCategory(availableСategories);
   }
   getProduct() {
-    this.categoryModel.getData().then(dataCards => {
-      this.selectedCardsId = this.categoryModel.getSelectedCardsId();
-      this.eventManager.publish('selectedCardsId', this.selectedCardsId);
-      this.filterProductsByCategory(dataCards);
-    });
+    this.eventManager.publish('requestProducts');
   }
 }

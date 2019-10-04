@@ -17,7 +17,7 @@ export class CategoryController {
       };
       this.filterProductsByCategory(dataCards);
     });
-    this.categoryView.bindButtonCategory(this.updateCategory.bind(this), this.getProduct.bind(this));
+    this.categoryView.bindButtonCategory(this.updateCategory.bind(this), this.updateProduct.bind(this));
   }
   updateCategory(currentCategory) {
     this.category = currentCategory;
@@ -30,7 +30,7 @@ export class CategoryController {
     let availableСategories = this.categoryModel.getAllCategory(dataCards);
     this.categoryView.renderCategory(availableСategories);
   }
-  getProduct() {
+  updateProduct() {
     this.eventManager.publish('requestProducts');
   }
 }

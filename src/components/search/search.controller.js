@@ -9,7 +9,7 @@ export class SearchController {
     this.init();
   }
   init() {
-    this.searchView.inputSeach(this.updateSearch.bind(this), this.getProduct.bind(this));
+    this.searchView.inputSeach(this.updateSearch.bind(this), this.updateProduct.bind(this));
     this.eventManager.subscribe('productsForSeach', (dataCards) => this.filterProductsBySearch(dataCards));
   }
   filterProductsBySearch(dataCards) {
@@ -19,7 +19,7 @@ export class SearchController {
   updateSearch(currentSearch) {
     this.search = currentSearch;
   }
-  getProduct() {
+  updateProduct() {
     this.eventManager.publish('requestProducts');
   }
 }

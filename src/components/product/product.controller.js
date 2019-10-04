@@ -11,7 +11,7 @@ export class ProductController {
   }
   init() {
     this.productView.bindButtonBuy(this.removeSelectedCard.bind(this), this.addSelectedCard.bind(this));
-    this.eventManager.subscribe('products', (dataCards) => {
+    this.eventManager.subscribe('productsForProducts', (dataCards) => {
       this.dataCards = dataCards;
       this.giveToRender();
     });

@@ -7,15 +7,15 @@ import { NumberFilterController } from './components/number-filter/number-filter
 
 export class AppManager {
   constructor() {
-    this.eventManager = new EventManager();
-    this.productController = new ProductController(this.eventManager);
-    this.searchController = new SearchController(this.eventManager);
-    this.categoryController = new CategoryController(this.eventManager);
-    this.cartController = new CartController(this.eventManager);
-    this.priceFilterController = new NumberFilterController(this.eventManager, { current: 'Price', next: 'Quantity', sing: '$' });
-    this.quantityFilterController = new NumberFilterController(this.eventManager, { current: 'Quantity', next: 'LifetimeYears' });
-    this.lifetimeYearsFilterController = new NumberFilterController(this.eventManager, { current: 'LifetimeYears', next: 'AgeMonth', sing: 'year' });
-    this.ageMonthFilterController = new NumberFilterController(this.eventManager, { current: 'AgeMonth', next: 'WeightKg', sing: 'month' });
-    this.weightKgFilterController = new NumberFilterController(this.eventManager, { current: 'WeightKg', next: 'Products', sing: 'kg' });
+    const eventManager = new EventManager()
+    this.productController = new ProductController({ eventManager, subscribe: 'Products', publish: 'Category' });
+    this.categoryController = new CategoryController({ eventManager, subscribe: 'Category', publish: 'Search' });
+    this.cartController = new CartController({ eventManager, subscribe: 'Category' });
+    this.searchController = new SearchController({ eventManager, subscribe: 'Search', publish: 'Price' });
+    this.priceFilterController = new NumberFilterController({ eventManager, subscribe: 'Price', publish: 'Quantity', sing: '$' });
+    this.quantityFilterController = new NumberFilterController({ eventManager, subscribe: 'Quantity', publish: 'LifetimeYears' });
+    this.lifetimeYearsFilterController = new NumberFilterController({ eventManager, subscribe: 'LifetimeYears', publish: 'AgeMonth', sing: 'year' });
+    this.ageMonthFilterController = new NumberFilterController({ eventManager, subscribe: 'AgeMonth', publish: 'WeightKg', sing: 'month' });
+    this.weightKgFilterController = new NumberFilterController({ eventManager, subscribe: 'WeightKg', publish: 'Products', sing: 'kg' });
   }
 }

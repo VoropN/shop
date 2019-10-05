@@ -1,15 +1,19 @@
-<div class="row container cart {{blockImgActive}}">
-  <div class="two column block-img "><img src="{{url}}" alt="none"></div>
-  <div class="two column u-full-width">
+<div class="cart-column cart {{blockImgActive}}">
+  <div class="block-img "><img src="{{url}}" alt="none"></div>
+  <div class="cart-describe">
     <div><span>Name: </span>{{ name }}</div>
     <div><span>Price: </span>{{ price }}<span> $</span></div>
     <div><span>Gender: </span>{{ gender }}</div>
     <div *if="fur"><span>Fur: </span>{{ fur }}</div>
     <div><span>Color: </span>{{ color }}</div>
-    <div><span>Quantity: </span>{{ quantity }}</div>
-    <div><span>Lifetime years: </span>{{ lifetimeYears }}</div>
-    <div><span>Age month: </span>{{ ageMonth }}</div>
-    <div><span>Weight kg: </span>{{ weightKg }}</div>
-    <button data-id="{{ id }}" class="button button-buy button-primary {{ buttonActiveClass }}">{{buttonTextContent}}</button>
+    <button data-id="{{ id }}"
+      class="button button-buy button-primary {{ buttonActiveClass }}">{{buttonTextContent}}</button>
+    <button class="button button-details">details</button>
+    <div class="content-details hidden">
+      <div><span>Quantity: </span>{{ quantity }}</div>
+      <div><span>Lifetime years: </span>{{ lifetimeYears }}</div>
+      <div><span>Age month: </span>{{ ageMonth }}</div>
+      <div><span>Weight kg: </span>{{ weightKg }}</div>
+    </div>
   </div>
 </div>

@@ -2,16 +2,15 @@ import { NumberFilterModel } from './number-filter.model';
 import { NumberFilterView } from './number-filter.view';
 
 export class NumberFilterController {
-  constructor(eventManager, options) {
+  constructor(options) {
     this.options = options;
-    this.eventManager = eventManager;
     this.numberFilterModel = new NumberFilterModel();
     this.numberFilterView = new NumberFilterView(this.options);
     this.init();
   }
   init() {
     let isNotRenderFilter = true;
-    this.eventManager.subscribe(`productsFor${this.options.current}`, (dataCards) => {
+    this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => {
       if(isNotRenderFilter) {
         this.determineMax(dataCards);
         isNotRenderFilter = false;
@@ -20,18 +19,18 @@ export class NumberFilterController {
     });
   }
   filterProductsByParam(dataCards) {
-    let newDataCards = this.numberFilterModel.filterProductsByParam(dataCards, this[this.options.current], this.options.current);
-    this.eventManager.publish(`productsFor${this.options.next}`, newDataCards);
+    let newDataCards = this.numberFilterModel.filterProductsByParam(dataCards, this[this.options.subscribe], this.options.subscribe);
+    this.options.eventManager.publish(`productsFor${this.options.publish}`, newDataCards);
   }
   determineMax(dataCards) {
-    let dataFild = this.numberFilterModel.convertToDataFild(this.options.current);
+    let dataFild = this.numberFilterModel.convertToDataFild(this.options.subscribe);
     let max = Math.max(...dataCards.map(dataCard => dataCard[dataFild]));
     this.numberFilterView.renderFilter(max, this.updateProduct.bind(this), this.updateFilter.bind(this));
   }
   updateFilter(currentValue) {
-    this[this.options.current] = currentValue;
+    this[this.options.subscribe] = currentValue;
   }
   updateProduct() {
-    this.eventManager.publish('requestProducts');
+    this.options.eventManager.publish('requestProducts');
   }
 }

@@ -1,6 +1,6 @@
 #cart
   position: fixed
-  top: 0
+  top: 15px
   right: 25px
   z-index: 999999
 .modal
@@ -80,8 +80,21 @@
   
 .modal-content-inner
   overflow-y: overlay
-  max-height: 400px
+  max-height: 415px
 .have-not-pet
   margin-top: 0
   margin-bottom: 0
-  
+
+.content-details
+  height: 80px
+  transition: .2s
+  opacity: 1
+  &.hidden
+    opacity: 0
+    height: 0
+    *
+      display: none
+
+.modal-content-inner
+  .cart-column + .cart-column
+    margin-top: 35px

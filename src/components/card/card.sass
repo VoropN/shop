@@ -4,8 +4,7 @@
   margin-top: 20px
 
 .block-img
-  width: 450px
-  height: 170px
+  height: 150px
   overflow: hidden
   filter: drop-shadow(2px 4px 6px black)
   border-radius: 200px
@@ -13,11 +12,11 @@
     filter: contrast(1.2) drop-shadow(3px 6px 8px rgba(green, .5))
   &-active img
     filter: contrast(1.2) drop-shadow(3px 6px 8px rgba(green, .6))
-
-.row
+.cart-column
   margin: 20px
-  display: flex
-  align-items: center
+  display: grid
+  grid-template-columns: 220px 1fr
+  grid-gap: 25px
   user-select: none
 
 .button-primary
@@ -29,3 +28,10 @@ button.button-primary:focus.return,
   background: rgba(red, .5)
   border: 1px solid
 
+.content-details
+  height: 80px
+  transition: .2s
+  opacity: 1
+  &.hidden
+    opacity: 0
+    height: 0

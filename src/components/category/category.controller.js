@@ -2,15 +2,15 @@ import { CategoryModel } from './category.model';
 import { CategoryView } from './category.view';
 
 export class CategoryController {
-  constructor(eventManager) {
-    this.eventManager = eventManager;
+  constructor(options) {
+    this.options = options;
     this.categoryModel = new CategoryModel();
     this.categoryView = new CategoryView();
     this.init();
   }
   init() {
     let isNotRenderAllCategory = true;
-    this.eventManager.subscribe('productsBeforeFiltration', (dataCards) => {
+    this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => {
       if (isNotRenderAllCategory) {
         isNotRenderAllCategory = false;
         this.getAllCategory(dataCards);
@@ -24,13 +24,13 @@ export class CategoryController {
   }
   filterProductsByCategory(dataCards) {
     let newDataCards = this.categoryModel.filterProductsByCategory(dataCards, this.category);
-    this.eventManager.publish('productsForSeach', newDataCards);
+    this.options.eventManager.publish(`productsFor${this.options.publish}`, newDataCards);
   }
   getAllCategory(dataCards) {
     let availableСategories = this.categoryModel.getAllCategory(dataCards);
     this.categoryView.renderCategory(availableСategories);
   }
   updateProduct() {
-    this.eventManager.publish('requestProducts');
+    this.options.eventManager.publish('requestProducts');
   }
 }

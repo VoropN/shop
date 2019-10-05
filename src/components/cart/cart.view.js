@@ -18,6 +18,8 @@ export class CartView {
         this.modal.classList.add('modal-open');
       } else if (target.closest('.close-modal')) {
         this.modal.classList.toggle('modal-open');
+      } else if(target.closest('.button-details')) {
+        target.nextElementSibling.classList.toggle('hidden');
       };
     });
   }

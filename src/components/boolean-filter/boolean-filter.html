@@ -1,0 +1,38 @@
+<div class="boolean-filters-container form-group container">
+  <div *if="lopiness" class="form-control">
+    <input *if="lopiness" class="boolean-filter-input" id="{{lopiness}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{lopiness}}">Lopiness</label>
+  </div>
+  <div *if="pedigree" class="form-control">
+    <input class="boolean-filter-input" id="{{pedigree}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{pedigree}}">Pedigree</label>
+  </div>
+  <div *if="shortLegged" class="form-control">
+    <input class="boolean-filter-input" id="{{shortLegged}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{shortLegged}}">Short legged</label>
+  </div>
+  <div *if="rapacity" class="form-control">
+    <input class="boolean-filter-input" id="{{rapacity}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{rapacity}}">Rapacity</label>
+  </div>
+  <div *if="trimming" class="form-control">
+    <input class="boolean-filter-input" id="{{trimming}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{trimming}}">Trimming</label>
+  </div>
+  <div *if="freshwater" class="form-control">
+    <input class="boolean-filter-input" id="{{freshwater}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{freshwater}}">Freshwater</label>
+  </div>
+  <div *if="singing" class="form-control">
+    <input class="boolean-filter-input" id="{{singing}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{singing}}">Singing</label>
+  </div>
+  <div *if="talking" class="form-control">
+    <input class="boolean-filter-input" id="{{talking}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{talking}}">Talking</label>
+  </div>
+  <div *if="flying" class="form-control">
+    <input class="boolean-filter-input" id="{{flying}}" type="checkbox">
+    <label class="boolean-filter-name" for="{{flying}}">Flying</label>
+  </div>
+</div>

@@ -19,7 +19,7 @@ export class CartView {
       } else if (target.closest('.close-modal')) {
         this.modal.classList.toggle('modal-open');
       } else if(target.closest('.button-details')) {
-        target.nextElementSibling.classList.toggle('hidden');
+        target.nextElementSibling.classList.toggle('show');
       };
     });
   }

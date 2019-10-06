@@ -27,7 +27,7 @@ export class ProductView {
           addSelectedCard(target.dataset.id);
         };
       } else if (target.closest('.button-details')) {
-        target.nextElementSibling.classList.toggle('hidden');
+        target.nextElementSibling.classList.toggle('show');
       };
     });
   }

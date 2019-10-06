@@ -33,6 +33,7 @@
     .modal-content
       background-color: white
       max-width: 40em
+      min-width: 275px
       padding: 1em 1.5em
       position: relative
       margin: 2em
@@ -53,13 +54,16 @@
         p 
           margin-bottom: 1em
       .modal-buttons-seperator 
-        margin: 1.5em 0
+        margin: 1em 1.5em 3.2em
         margin-top: 0
       .modal-buttons 
         display: flex
         flex-direction: row
         justify-content: flex-end
         align-items: center  
+        position: absolute
+        bottom: 5px
+        right: 40px
         button 
           margin-left: 1em
           &:first-child 
@@ -76,25 +80,11 @@
 .backet
   cursor: pointer
   right: 55px
-
   
 .modal-content-inner
   overflow-y: overlay
-  max-height: 415px
+  max-height: 425px
+
 .have-not-pet
   margin-top: 0
   margin-bottom: 0
-
-.content-details
-  height: 80px
-  transition: .2s
-  opacity: 1
-  &.hidden
-    opacity: 0
-    height: 0
-    *
-      display: none
-
-.modal-content-inner
-  .cart-column + .cart-column
-    margin-top: 35px

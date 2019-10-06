@@ -13,8 +13,8 @@ export class NumberFilterView {
     this.filters = document.querySelector('.filters-container');
     if (!this.filters) {
       this.filters = document.createElement('div');
-      this.createMenu();
       this.filters.className = 'filters-container';
+      this.createMenu();
       globalContainer.insertBefore(this.filters, globalContainer.firstChild);
     };
     this.filterOutput.className = this.options.subscribe.toLowerCase() + ' filter';
@@ -28,13 +28,14 @@ export class NumberFilterView {
         this.filters.classList.toggle('filter-translate');
         globalContainer.classList.toggle('transition');
         if (menu.toggle) {
-          menu.tag.innerHTML = '<i class="icon-filter fas fa-reply-all fa-2x"></i>';
-        } else {
           menu.tag.innerHTML = '<i class="icon-filter fas fa-ellipsis-h fa-2x"></i>';
+        } else {
+          menu.tag.innerHTML = '<i class="icon-filter fas fa-reply-all fa-2x"></i>';
         };
       },
     };
     menu.toggleMenu();
+    globalContainer.classList.toggle('transition');
     menu.tag.addEventListener('click', menu.toggleMenu);
     document.body.insertBefore(menu.tag, document.body.firstChild);
   }
@@ -57,9 +58,9 @@ export class NumberFilterView {
       updateProduct();
     });
   }
-  renderFilter(max, eventManager, updateFilter) {
+  renderFilter(max, updateProduct, updateFilter) {
     let fragment = new Translator({ template: numberFilterTemplate }).createElement();
     this.filterOutput.append(fragment);
-    this.sliderFilter(max, eventManager, updateFilter);
+    this.sliderFilter(max, updateProduct, updateFilter);
   }
 }

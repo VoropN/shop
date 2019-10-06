@@ -21,6 +21,7 @@ export class CategoryController {
   }
   updateCategory(currentCategory) {
     this.category = currentCategory;
+    this.options.eventManager.publish('changeCategory', currentCategory);
   }
   filterProductsByCategory(dataCards) {
     let newDataCards = this.categoryModel.filterProductsByCategory(dataCards, this.category);

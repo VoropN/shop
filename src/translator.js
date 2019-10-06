@@ -9,7 +9,7 @@ export class Translator {
       new RegExp(`{{\\s*${el}\\s*}}`, 'g'), 
       Array.isArray(this.data[el]) ? this.data[el].join(', ') : this.data[el]
       ), this.template)
-    .replace(/\*if=(\w*)/g, (...prop) => this.data[prop[1]] ? '' : 'hidden')
+    .replace(/\*if=(\w*)/g, (...prop) => this.data[prop[1]] !== undefined ? '' : 'style="display: none;"')
     .replace(/{{.*?}}/g, '');
   }
   createElement() {

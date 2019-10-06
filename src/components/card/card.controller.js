@@ -8,8 +8,12 @@ export class CardController {
     this.init();
   }
   init() {
-    this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
+    this.unsubscrSelectedCardsId = this.eventManager.subscribe('selectedCardsId', (selectedCardsId) => {
       this.cardView.selectedCardsId = selectedCardsId;
+    });
+    this.unsubscrRequestProducts = this.eventManager.subscribe('requestProducts', () => {
+      this.unsubscrSelectedCardsId();
+      this.unsubscrRequestProducts()
     });
   }
 }

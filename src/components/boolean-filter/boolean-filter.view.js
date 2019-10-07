@@ -3,9 +3,6 @@ import booleanFilterTemplate from './boolean-filter.html';
 import './boolean-filter.sass';
 
 export class BooleanFilterView {
-  constructor(options) {
-    this.options = options;
-  }
   bindCheckbox(updateFilter, updateProduct) {
     this.filterOutput.addEventListener('change', (e) => {
       let target = e.target;

@@ -9,7 +9,8 @@ export class CartController {
     this.cartModel = new CartModel();
     this.init();
   }
-  init(){
+  init() {
+    this.cartView.renderCart();
     this.cartView.bucket(this.getSelectedCardsId.bind(this));
     this.cartView.bindButtonBuy(this.removeSelectedCard.bind(this), this.addSelectedCard.bind(this));
 

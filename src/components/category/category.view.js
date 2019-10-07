@@ -3,10 +3,6 @@ import categoryTemplate from './category.html';
 import './category.sass';
 
 export class CategoryView  {
-  constructor() {
-    this.createOutput();
-    this.createElemActiveCategory();
-  }
   bindButtonCategory(updateCategory, updateProduct) {
     this.categoriesOutput.addEventListener('click', (e) => {
       let target = e.target;

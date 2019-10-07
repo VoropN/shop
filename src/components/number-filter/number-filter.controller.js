@@ -9,12 +9,9 @@ export class NumberFilterController {
     this.init();
   }
   init() {
-    let isNotRenderFilter = true;
+    this.numberFilterView.createOutput({ name: this.options.subscribe });
     this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => {
-      if(isNotRenderFilter) {
-        this.determineMax(dataCards);
-        isNotRenderFilter = false;
-      };
+      this.max || this.initFilter(dataCards);
       this.filterProductsByParam(dataCards);
     });
   }
@@ -22,10 +19,16 @@ export class NumberFilterController {
     let newDataCards = this.numberFilterModel.filterProductsByParam(dataCards, this[this.options.subscribe], this.options.subscribe);
     this.options.eventManager.publish(`productsFor${this.options.publish}`, newDataCards);
   }
-  determineMax(dataCards) {
+  initFilter(dataCards) {
     let dataFild = this.numberFilterModel.convertToDataFild(this.options.subscribe);
-    let max = Math.max(...dataCards.map(dataCard => dataCard[dataFild]));
-    this.numberFilterView.renderFilter(max, this.updateProduct.bind(this), this.updateFilter.bind(this));
+    this.max = Math.max(...dataCards.map(dataCard => dataCard[dataFild]));
+    this.numberFilterView.renderFilter({
+      max: this.max,
+      updateProduct: this.updateProduct.bind(this),
+      updateFilter: this.updateFilter.bind(this),
+      name: this.numberFilterModel.convertFromСamelCase(this.options.subscribe),
+      sing: this.options.sing
+    });
   }
   updateFilter(currentValue) {
     this[this.options.subscribe] = currentValue;

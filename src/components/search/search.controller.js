@@ -9,6 +9,8 @@ export class SearchController {
     this.init();
   }
   init() {
+    this.searchView.createOutput();
+    this.searchView.renderSearch();
     this.searchView.inputSeach(this.updateSearch.bind(this), this.updateProduct.bind(this));
     this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => this.filterProductsBySearch(dataCards));
   }

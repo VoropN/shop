@@ -3,10 +3,6 @@ import searchTemplate from './search.html';
 import './search.sass';
 
 export class SearchView {
-  constructor() {
-    this.createOutput();
-    this.renderSearch();
-  }
   inputSeach(updateSearch, updateProduct) {
     this.searchOutput.addEventListener('input', (e) => {
       updateSearch(e.target.value);

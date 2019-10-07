@@ -7,9 +7,6 @@ import '@fortawesome/fontawesome-free/js/brands';
 import './cart.sass';
 
 export class CartView {
-  constructor() {
-    this.renderCart();
-  }
   bucket(getSelectedCardsId) {
     this.cartElem.addEventListener('click', (e) => {
       let target = e.target;

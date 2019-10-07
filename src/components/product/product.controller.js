@@ -10,6 +10,7 @@ export class ProductController {
     this.init();
   }
   init() {
+    this.productView.createOutput();
     this.productView.bindButtonBuy(this.removeSelectedCard.bind(this), this.addSelectedCard.bind(this));
     this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => {
       this.dataCards = dataCards;

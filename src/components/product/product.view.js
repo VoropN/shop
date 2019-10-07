@@ -3,9 +3,6 @@ import productTemplate from './product.html';
 import './product.sass';
 
 export class ProductView {
-  constructor() {
-    this.createOutput();
-  }
   createOutput() {
     let fragment = new Translator({ template: productTemplate }).createElement();
     this.productListOutput = fragment.querySelector('.product-list');

@@ -1,88 +1,67 @@
-export function Slider(options) {
-  let elem = options.elem;
-
-  let thumbElem = elem.querySelector('.thumb');
-
-  let max = options.max || 100;
-  let sliderCoords, thumbCoords, shiftX, shiftY;
-
-  // [<*>----------------]
-  //   |...............|
-  // first            last
-  let pixelsPerValue = (elem.clientWidth - thumbElem.clientWidth) / max;
-
-  elem.ondragstart = function() {
-    return false;
-  };
-
-  elem.onmousedown = function(event) {
-    if (event.target.closest('.thumb')) {
-      startDrag(event.clientX, event.clientY);
-      return false; // disable selection start (cursor change)
+export class Slider {
+  constructor(options) {
+    this.elem = options.elem;
+    this.thumbElem = this.elem.querySelector('.thumb');
+    this.max = options.max || 100;
+    this.sliderCoords;
+    this.thumbCoords;
+    this.shiftX;
+    this.shiftY;
+    this.pixelsPerValue = (this.elem.clientWidth - this.thumbElem.clientWidth) / this.max;
+    this.init();
+    this.setValue(0);
+  }
+  init() {
+    this.elem.ondragstart = () => false;
+    this.elem.onmousedown = (event) => {
+      if (event.target.closest('.thumb')) {
+        this.startDrag(event.clientX, event.clientY);
+        return false; // disable selection start (cursor change)
+      };
     };
   }
-
-  function startDrag(startClientX, startClientY) {
-    thumbCoords = thumbElem.getBoundingClientRect();
-    shiftX = startClientX - thumbCoords.left;
-    shiftY = startClientY - thumbCoords.top;
-
-    sliderCoords = elem.getBoundingClientRect();
-
-    document.addEventListener('mousemove', onDocumentMouseMove);
-    document.addEventListener('mouseup', onDocumentMouseUp);
+  startDrag(startClientX, startClientY) {
+    this.thumbCoords = this.thumbElem.getBoundingClientRect();
+    this.shiftX = startClientX - this.thumbCoords.left;
+    this.shiftY = startClientY - this.thumbCoords.top;
+    this.sliderCoords = this.elem.getBoundingClientRect();
+    document.addEventListener('mousemove', this.funcMouseMove = (e) => {
+      this.onDocumentMouseMove(e.clientX);
+    });
+    document.addEventListener('mouseup', this.funcMouseUp = (e) => {
+      this.onDocumentMouseUp();
+    });
   }
-
-  function moveTo(clientX) {
+  onDocumentMouseMove(clientX) {
     // вычесть координату родителя, т.к. position: relative
-    let newLeft = clientX - shiftX - sliderCoords.left;
-
+    let newLeft = clientX - this.shiftX - this.sliderCoords.left;
     // курсор ушёл вне слайдера
     if (newLeft < 0) {
       newLeft = 0;
-    }
-    let rightEdge = elem.offsetWidth - thumbElem.offsetWidth;
+    };
+    let rightEdge = this.elem.offsetWidth - this.thumbElem.offsetWidth;
     if (newLeft > rightEdge) {
       newLeft = rightEdge;
-    }
-
-    thumbElem.style.left = newLeft + 'px';
-
-    elem.dispatchEvent(new CustomEvent('slide', {
+    };
+    this.thumbElem.style.left = newLeft + 'px';
+    this.elem.dispatchEvent(new CustomEvent('slide', {
       bubbles: true,
-      detail: positionToValue(newLeft)
+      detail: this.positionToValue(newLeft)
+    }));
+
+  }
+  onDocumentMouseUp() {
+    document.removeEventListener("mouseup", this.funcMouseUp);
+    document.removeEventListener("mousemove", this.funcMouseMove);
+    this.elem.dispatchEvent(new CustomEvent('change', {
+      bubbles: true,
+      detail: this.positionToValue(parseInt(this.thumbElem.style.left))
     }));
   }
-
-  function valueToPosition(value) {
-    return pixelsPerValue * value;
+  positionToValue(left) {
+    return Math.round(left / this.pixelsPerValue);
   }
-
-  function positionToValue(left) {
-    return Math.round(left / pixelsPerValue);
+  setValue(value) {
+    this.thumbElem.style.left = this.pixelsPerValue * value + 'px';
   }
-
-  function onDocumentMouseMove(e) {
-    moveTo(e.clientX);
-  }
-
-  function onDocumentMouseUp() {
-    endDrag();
-  }
-
-  function endDrag() {
-    document.removeEventListener('mousemove', onDocumentMouseMove);
-    document.removeEventListener('mouseup', onDocumentMouseUp);
-
-    elem.dispatchEvent(new CustomEvent('change', {
-      bubbles: true,
-      detail: positionToValue(parseInt(thumbElem.style.left))
-    }));
-  }
-
-  function setValue(value) {
-    thumbElem.style.left = valueToPosition(value) + 'px';
-  }
-
-  this.setValue = setValue;
 }

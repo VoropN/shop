@@ -28,9 +28,11 @@ export class BooleanFilterView {
     this.filterOutput.appendChild(fragment);
   }
   changeState(checkbox) {
+    checkbox.classList.remove('checked');
     if (checkbox.readOnly) {
       checkbox.checked = true;
       checkbox.readOnly = false;
+      checkbox.classList.add('checked');
     } else if (checkbox.checked) {
       checkbox.readOnly = checkbox.indeterminate = true;
     };
@@ -39,6 +41,7 @@ export class BooleanFilterView {
     if (value === true) {
       checkbox.checked = true;
       checkbox.readOnly = false;
+      checkbox.classList.add('checked');
     } else if (value === false) {
       checkbox.checked = false;
     } else {

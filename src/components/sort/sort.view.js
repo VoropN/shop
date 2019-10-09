@@ -35,16 +35,16 @@ export class SortView {
       if (isPriceUp) {
         elem.innerHTML = '<i class="fas fa-sort-amount-up-alt fa-2x"></i>' + iconStart;
         isPriceUp = !isPriceUp;
-        return (firs, second) => firs.price - second.price;
+        return 'priceUp';
       } else if (isPriceDown) {
         elem.innerHTML = '<i class="fas fa-sort-amount-down fa-2x"></i>' + iconStart;
         isPriceDown = !isPriceDown;
-        return (firs, second) => second.price - firs.price;
+        return 'priceDown';
       } else {
         elem.innerHTML = '<i class="fas fa-arrows-alt-v fa-2x"></i>' + iconStart;
         isPriceUp = true;
         isPriceDown = true;
-        return (firs, second) => firs.id - second.id;
+        return 'id';
       };
     }
   }
@@ -60,16 +60,16 @@ export class SortView {
       if (isNameUp) {
         elem.innerHTML = '<i class="fas fa-sort-alpha-up-alt fa-2x"></i>' + iconStart;
         isNameUp = !isNameUp;
-        return (firs, second) => firs.name > second.name ? -1 : 1;
+        return 'nameUp';
       } else if (isNameDown) {
         elem.innerHTML = '<i class="fas fa-sort-alpha-down fa-2x"></i>' + iconStart;
         isNameDown = !isNameDown;
-        return (firs, second) => second.name > firs.name ? -1 : 1;
+        return 'nameDown';
       } else {
         elem.innerHTML = '<i class="fas fa-arrows-alt-v fa-2x"></i>' + iconStart;
         isNameUp = true;
         isNameDown = true;
-        return (firs, second) => firs.id - second.id;
+        return 'id';
       };
     }
   }

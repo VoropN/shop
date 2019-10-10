@@ -21,7 +21,7 @@ export class BooleanFilterController {
       flying: null
     };
     this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => this.filterProductsByParam(dataCards));
-    this.options.eventManager.subscribe(`changeCategory`, (category) => this.changeCategory(category));
+    this.options.eventManager.subscribe('changeCategory', (category) => this.changeCategory(category));
   }
   filterProductsByParam(dataCards) {
     if (!this.fieldCategories) {
@@ -30,7 +30,7 @@ export class BooleanFilterController {
       this.booleanFilterView.renderFilter(this.fieldCategoriesForTemplate['all'], this.filterField);
       this.booleanFilterView.bindCheckbox(this.updateFilter.bind(this), this.updateProduct.bind(this));
       this.category = 'all';
-    };
+    }
     this.currentFilter = this.booleanFilterModel.createCurrentFilter(this.filterField, this.fieldCategories[this.category]);
     this.filterProducts = this.booleanFilterModel.filterProducts(dataCards, this.currentFilter);
     this.options.eventManager.publish(`productsFor${this.options.publish}`, this.filterProducts);

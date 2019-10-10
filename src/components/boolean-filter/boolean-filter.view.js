@@ -10,7 +10,7 @@ export class BooleanFilterView {
         this.changeState(target);
         updateFilter(target.id, target.readOnly ? null : target.checked);
         updateProduct();
-      };
+      }
     });
   }
   renderFilter(data, filterField) {
@@ -23,7 +23,7 @@ export class BooleanFilterView {
       this.filterOutput.className = 'filters-block';
       let container = document.querySelector('.filters-container');
       container.append(this.filterOutput);
-    };
+    }
     this.filterOutput.innerHTML = '';
     this.filterOutput.appendChild(fragment);
   }
@@ -35,7 +35,7 @@ export class BooleanFilterView {
       checkbox.classList.add('checked');
     } else if (checkbox.checked) {
       checkbox.readOnly = checkbox.indeterminate = true;
-    };
+    }
   }
   setValueCheckBox(checkbox, value) {
     if (value === true) {
@@ -46,6 +46,6 @@ export class BooleanFilterView {
       checkbox.checked = false;
     } else {
       checkbox.readOnly = checkbox.indeterminate = true;
-    };
+    }
   }
 }

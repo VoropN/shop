@@ -54,7 +54,7 @@
         p 
           margin-bottom: 1em
       .modal-buttons-seperator 
-        margin: 1em 1.5em 3.2em
+        margin: 1em .5em 3.2em
         margin-top: 0
       .modal-buttons 
         display: flex
@@ -63,7 +63,7 @@
         align-items: center  
         position: absolute
         bottom: 5px
-        right: 40px
+        right: 35px
         button 
           margin-left: 1em
           &:first-child 
@@ -83,8 +83,26 @@
   
 .modal-content-inner
   overflow-y: overlay
-  max-height: 425px
+  max-height: 405px
 
 .have-not-pet
-  margin-top: 0
-  margin-bottom: 0
+  margin: 0 10px
+
+.cart-grid
+  position: relative
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  justify-content: center
+  grid-gap: 20px
+  &__col
+    margin: 5px
+    padding: 0
+    // border: 0
+    width: auto
+    height: auto
+    line-height: 2em
+    &_active
+      position: absolute
+      + .cart-grid__col
+        background: rgba(255, 0, 0, 0.5)
+        border: 1px solid rgba(255, 0, 0, 0.1)

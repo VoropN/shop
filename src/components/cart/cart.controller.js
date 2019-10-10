@@ -1,18 +1,21 @@
 import { CartView } from './cart.view';
 import { CartModel } from './cart.model';
 import { CardController } from '../card/card.controller';
+import { PurchaseController } from '../purchase/purchase.controller';
 
 export class CartController {
   constructor(options) {
     this.options = options;
     this.cartView = new CartView();
     this.cartModel = new CartModel();
+    this.purchaseController = new PurchaseController();
     this.init();
   }
   init() {
     this.cartView.renderCart();
     this.cartView.bucket(this.getSelectedCardsId.bind(this));
     this.cartView.bindButtonBuy(this.removeSelectedCard.bind(this), this.addSelectedCard.bind(this));
+    this.cartView.menu(this.getFormPursaches.bind(this), this.giveToRender.bind(this));
 
     this.options.eventManager.subscribe(`productsFor${this.options.subscribe}`, (dataCards) => {
       this.dataCards = dataCards;
@@ -45,5 +48,9 @@ export class CartController {
   addSelectedCard(cardId) {
     this.cartModel.addSelectedCard(cardId);
     this.options.eventManager.publish('addSelectedCard', cardId);
+  }
+  getFormPursaches() {
+    let form = this.purchaseController.getForm();
+    this.cartView.renderContentCart([form]);
   }
 }

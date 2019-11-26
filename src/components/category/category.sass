@@ -1,0 +1,15 @@
+.categories
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+  grid-gap: 15px
+  user-select: none
+      
+.category
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+  &-active
+    position: absolute
+    + .button
+      background: rgba(red, .5)
+      color: whitesmoke
+

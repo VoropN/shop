@@ -1,0 +1,25 @@
+.boolean-filters-container
+  margin-top: 25px
+  display: grid
+  grid-template-columns: repeat(1, 1fr)
+  .form-control
+    display: flex
+    align-items: center
+    *
+      padding: 0
+      padding-left: 5px
+      margin: 0
+      font-weight: 100
+
+
+.form-control
+  .checked[type="checkbox"] + label
+    color: green
+
+.form-control
+  [type="checkbox"] + label
+    color: red
+    
+.form-control
+  [readonly] + label
+    color: black

@@ -1,0 +1,108 @@
+#cart
+  position: fixed
+  top: 15px
+  right: 25px
+  z-index: 999999
+.modal
+  position: fixed
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+  background-color: rgba(0, 0, 0, .65)
+  visibility: hidden
+  backface-visibility: hidden
+  opacity: 0
+  transition: opacity .15s ease-in-out 
+  &.modal-open
+    visibility: visible
+    backface-visibility: visible
+    opacity: 1
+    z-index: 1
+  .modal-inner
+    position: relative
+    height: 100%
+    display:flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    left: 0
+    right: 0
+    margin: auto
+    display: flex
+    .modal-content
+      background-color: white
+      max-width: 40em
+      min-width: 275px
+      padding: 1em 1.5em
+      position: relative
+      margin: 2em
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.35)
+      border-radius: 4px 4px 8px 8px
+      overflow: hidden
+      .modal-close-icon 
+        position: absolute
+        right: 1.1em
+        top: 0.33em
+        a
+          color: rgba(white, .8)
+          &:hover
+            color: rgba(white, .4)
+      .modal-content-inner 
+        h1, h2, h3, h4, h5, h6 
+          margin-bottom: 0.25em
+        p 
+          margin-bottom: 1em
+      .modal-buttons-seperator 
+        margin: 1em .5em 3.2em
+        margin-top: 0
+      .modal-buttons 
+        display: flex
+        flex-direction: row
+        justify-content: flex-end
+        align-items: center  
+        position: absolute
+        bottom: 5px
+        right: 35px
+        button 
+          margin-left: 1em
+          &:first-child 
+            margin-left: 0
+
+.demo-container 
+  text-align: center
+.cart-title
+  background-color: #33c3f0
+  color: rgba(white, .9)
+  font-weight: 700
+  margin: -1em -1.5em 0
+  padding: 0.3em 1em
+.backet
+  cursor: pointer
+  right: 55px
+  
+.modal-content-inner
+  overflow-y: overlay
+  max-height: 405px
+
+.have-not-pet
+  margin: 0 10px
+
+.cart-grid
+  position: relative
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  justify-content: center
+  grid-gap: 20px
+  &__col
+    margin: 5px
+    padding: 0
+    // border: 0
+    width: auto
+    height: auto
+    line-height: 2em
+    &_active
+      position: absolute
+      + .cart-grid__col
+        background: rgba(255, 0, 0, 0.5)
+        border: 1px solid rgba(255, 0, 0, 0.1)

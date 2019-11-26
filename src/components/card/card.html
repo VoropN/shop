@@ -1,0 +1,28 @@
+<div class="cart-column cart {{blockImgActive}}">
+  <div class="block-img "><img src="{{url}}" alt="none"></div>
+  <div class="cart-describe">
+    <div><span>Name: </span>{{ name }}</div>
+    <div><span>Price: </span>{{ price }}<span> $</span></div>
+    <div><span>Gender: </span>{{ gender }}</div>
+    <div *if="fur"><span>Fur: </span>{{ fur }}</div>
+    <div><span>Color: </span>{{ color }}</div>
+    <button data-id="{{ id }}"
+      class="button button-buy button-primary {{ buttonActiveClass }}">{{buttonTextContent}}</button>
+    <button class="button button-details">details</button>
+    <div class="content-details">
+      <div><span>Quantity: </span>{{ quantity }}</div>
+      <div><span>Lifetime years: </span>{{ lifetimeYears }}</div>
+      <div><span>Age month: </span>{{ ageMonth }}</div>
+      <div><span>Weight kg: </span>{{ weightKg }}</div>
+      <div *if="lopiness"><span>Lopiness: </span>{{ lopiness }}</div>
+      <div *if="shortLegged"><span>Short legged: </span>{{ shortLegged }}</div>
+      <div *if="pedigree"><span>Pedigree: </span>{{ pedigree }}</div>
+      <div *if="rapacity"><span>Rapacity: </span>{{ rapacity }}</div>
+      <div *if="trimming"><span>Trimming: </span>{{ trimming }}</div>
+      <div *if="freshwater"><span>Freshwater: </span>{{ freshwater }}</div>
+      <div *if="singing"><span>Singing: </span>{{ singing }}</div>
+      <div *if="talking"><span>Talking: </span>{{ talking }}</div>
+      <div *if="flying"><span>Flying: </span>{{ flying }}</div>
+    </div>
+  </div>
+</div>
